@@ -336,45 +336,7 @@ a {
                     <label for="state">State:</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;<select name="t7" id="state">
                         <option value="" disabled selected>Select State</option>
-    <option value="CA-USA">California, USA</option>
-    <option value="NY-USA">New York, USA</option>
-    <option value="TX-USA">Texas, USA</option>
-    <option value="BC-CAN">British Columbia, Canada</option>
-    <option value="ON-CAN">Ontario, Canada</option>
-    <option value="QC-CAN">Quebec, Canada</option>
-    <option value="NSW-AUS">New South Wales, Australia</option>
-    <option value="VIC-AUS">Victoria, Australia</option>
-    <option value="QLD-AUS">Queensland, Australia</option>
-    <option value="ENG-UK">England, UK</option>
-    <option value="SCT-UK">Scotland, UK</option>
-    <option value="WLS-UK">Wales, UK</option>
-    <option value="BAV-GER">Bavaria, Germany</option>
-    <option value="NRW-GER">North Rhine-Westphalia, Germany</option>
-    <option value="BW-GER">Baden-Württemberg, Germany</option>
-    <option value="ILE-FRA">Île-de-France, France</option>
-    <option value="OCC-FRA">Occitanie, France</option>
-    <option value="NA-FRA">Nouvelle-Aquitaine, France</option>
-    <option value="MAH-IND">Maharashtra, India</option>
-    <option value="DEL-IND">Delhi, India</option>
-    <option value="KAR-IND">Karnataka, India</option>
-    <option value="GUA-MEX">Guanajuato, Mexico</option>
-    <option value="JAL-MEX">Jalisco, Mexico</option>
-    <option value="CHH-MEX">Chihuahua, Mexico</option>
-    <option value="TOK-JPN">Tokyo, Japan</option>
-    <option value="KAN-JPN">Kanagawa, Japan</option>
-    <option value="OSA-JPN">Osaka, Japan</option>
-    <option value="GAU-ZAF">Gauteng, South Africa</option>
-    <option value="KZN-ZAF">KwaZulu-Natal, South Africa</option>
-    <option value="WC-ZAF">Western Cape, South Africa</option>
-    <option value="SP-BRA">São Paulo, Brazil</option>
-    <option value="RJ-BRA">Rio de Janeiro, Brazil</option>
-    <option value="MG-BRA">Minas Gerais, Brazil</option>
-    <option value="MOW-RUS">Moscow, Russia</option>
-    <option value="SPE-RUS">Saint Petersburg, Russia</option>
-    <option value="KRA-RUS">Krasnodar Krai, Russia</option>
-    <!-- Add more options as needed -->
-</select>
-
+                        <!-- Add your state options here -->
                     </select>
                 </div>
 

@@ -15,7 +15,9 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 	<div class="card card-outline card-primary">
 		<div class="card-header">
 			<div class="card-tools">
+			<?php if($_SESSION['login_type'] == 3) { ?>
 				<a class="btn btn-block btn-sm btn-default btn-flat border-primary " href="./index.php?page=new_parcel"><i class="fa fa-plus"></i> Add New</a>
+			<?php } ?>
 			</div>
 		</div>
 		<div class="card-body">
@@ -33,6 +35,7 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 						<th>Reference Number</th>
 						<?php if($_SESSION['login_type'] != 3) { ?><th>Sender Name</th> <?php } ?>
 						<th>Recipient Name</th>
+						<th>Category/ Item</th>
 						<th>Status</th>
 						<th>Action</th>
 					</tr>
@@ -67,12 +70,14 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 					}
 					$qry = $conn->query("SELECT * from parcels $where order by  unix_timestamp(date_created) desc ");
 					while($row= $qry->fetch_assoc()):
+					 if ($_SESSION['login_type'] == 2 && $row['update_logid'] == $_SESSION['login_id']) {
 					?>
 					<tr>
 						<td class="text-center"><?php echo $i++ ?></td>
-						<td><b><?php echo ($row['reference_number']) ?></b></td>
+						<td><b><?php echo ($row['reference_number']) ?><br>Deliver Boy:-<?php echo ($row['update_boy_name']) ?></b></td>
 							<?php if($_SESSION['login_type'] != 3) { ?><td><b><?php echo ucwords($row['sender_name']) ?></b></td><?php } ?>
 						<td><b><?php echo ucwords($row['recipient_name']) ?></b></td>
+						<td><b><?php echo ($row['cate']) ?><br>Item:-<?php echo ($row['item']) ?></td>
 						<td class="text-center">
 							<?php 
 							switch ($row['status']) {
@@ -114,7 +119,7 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 
 							?>
 							<?php 
-							if ($row['status']==10) {?>
+							if ($row['status']==10 && $_SESSION['login_type'] == 3) {?>
 							 <span class="btn badge badge-primary bg-gradient-primary" id='rzp-button1'>
             <i class="fa fa-edit"></i> Pay Now
         </span>
@@ -138,7 +143,155 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 	                      </div>
 						</td>
 					</tr>	
-				<?php endwhile; ?>
+		<?php } elseif($_SESSION['login_type'] == 2 && $row['status']==10) {  ?>
+					 <tr>
+						<td class="text-center"><?php echo $i++ ?></td>
+						<td><b><?php echo ($row['reference_number']) ?><br>Deliver Boy:-<?php echo ($row['update_boy_name']) ?></b></td>
+							<?php if($_SESSION['login_type'] != 3) { ?><td><b><?php echo ucwords($row['sender_name']) ?></b></td><?php } ?>
+						<td><b><?php echo ucwords($row['recipient_name']) ?></b></td>
+							<td><b><?php echo ($row['cate']) ?><br>Item:-<?php echo ($row['item']) ?></td>
+						<td class="text-center">
+							<?php 
+							switch ($row['status']) {
+								case '1':
+									echo "<span class='badge badge-pill badge-info'> Collected</span>";
+									break;
+								case '2':
+									echo "<span class='badge badge-pill badge-info'> Shipped</span>";
+									break;
+								case '3':
+									echo "<span class='badge badge-pill badge-primary'> In-Transit</span>";
+									break;
+								case '4':
+									echo "<span class='badge badge-pill badge-primary'> Arrived At Destination</span>";
+									break;
+								case '5':
+									echo "<span class='badge badge-pill badge-primary'> Out for Delivery</span>";
+									break;
+								case '6':
+									echo "<span class='badge badge-pill badge-primary'> Ready to Pickup</span>";
+									break;
+								case '7':
+									echo "<span class='badge badge-pill badge-success'>Delivered</span>";
+									break;
+								case '8':
+									echo "<span class='badge badge-pill badge-success'> Picked-up</span>";
+									break;
+								case '9':
+									echo "<span class='badge badge-pill badge-danger'> Unsuccessfull Delivery Attempt</span>";
+									break;
+								case '10':
+									echo "<span class='badge badge-pill badge-danger'> Approved</span>";
+									break;
+								default:
+									echo "<span class='badge badge-pill badge-info'> Waiting For Delivery Associative Approval</span>";
+									
+									break;
+							}
+
+							?>
+							<?php 
+							if ($row['status']==10 && $_SESSION['login_type'] == 3) {?>
+							 <span class="btn badge badge-primary bg-gradient-primary" id='rzp-button1'>
+            <i class="fa fa-edit"></i> Pay Now
+        </span>
+							<input type="hidden" value="<?php echo $row['price'] ?>" id="amount">
+							<input type="hidden" value="<?php echo $row['sender_name'] ?>" id="name">
+							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
+							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
+							<?php } ?>
+						</td>
+						<td class="text-center">
+		                    <div class="btn-group">
+		                    	<button type="button" class="btn btn-info btn-flat view_parcel" data-id="<?php echo $row['id'] ?>">
+		                          <i class="fas fa-eye"></i>
+		                        </button>
+		                        <a href="index.php?page=edit_parcel&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">
+		                          <i class="fas fa-edit"></i>
+		                        </a>
+		                        <button type="button" class="btn btn-danger btn-flat delete_parcel" data-id="<?php echo $row['id'] ?>">
+		                          <i class="fas fa-trash"></i>
+		                        </button>
+	                      </div>
+						</td>
+					</tr>	
+					 
+		<?php } elseif($_SESSION['login_type'] != 2){?>
+		 <tr>
+						<td class="text-center"><?php echo $i++ ?></td>
+						<td><b><?php echo ($row['reference_number']) ?><br>Deliver Boy:-<?php echo ($row['update_boy_name']) ?></b></td>
+							<?php if($_SESSION['login_type'] != 3) { ?><td><b><?php echo ucwords($row['sender_name']) ?></b></td><?php } ?>
+						<td><b><?php echo ucwords($row['recipient_name']) ?></b></td>
+							<td><b><?php echo ($row['cate']) ?><br>Item:-<?php echo ($row['item']) ?></td>
+						<td class="text-center">
+							<?php 
+							switch ($row['status']) {
+								case '1':
+									echo "<span class='badge badge-pill badge-info'> Collected</span>";
+									break;
+								case '2':
+									echo "<span class='badge badge-pill badge-info'> Shipped</span>";
+									break;
+								case '3':
+									echo "<span class='badge badge-pill badge-primary'> In-Transit</span>";
+									break;
+								case '4':
+									echo "<span class='badge badge-pill badge-primary'> Arrived At Destination</span>";
+									break;
+								case '5':
+									echo "<span class='badge badge-pill badge-primary'> Out for Delivery</span>";
+									break;
+								case '6':
+									echo "<span class='badge badge-pill badge-primary'> Ready to Pickup</span>";
+									break;
+								case '7':
+									echo "<span class='badge badge-pill badge-success'>Delivered</span>";
+									break;
+								case '8':
+									echo "<span class='badge badge-pill badge-success'> Picked-up</span>";
+									break;
+								case '9':
+									echo "<span class='badge badge-pill badge-danger'> Unsuccessfull Delivery Attempt</span>";
+									break;
+								case '10':
+									echo "<span class='badge badge-pill badge-danger'> Approved</span>";
+									break;
+								default:
+									echo "<span class='badge badge-pill badge-info'> Waiting For Delivery Associative Approval</span>";
+									
+									break;
+							}
+
+							?>
+							<?php 
+							if ($row['status']==10 && $_SESSION['login_type'] == 3) {?>
+							 <span class="btn badge badge-primary bg-gradient-primary" id='rzp-button1'>
+            <i class="fa fa-edit"></i> Pay Now
+        </span>
+							<input type="hidden" value="<?php echo $row['price'] ?>" id="amount">
+							<input type="hidden" value="<?php echo $row['sender_name'] ?>" id="name">
+							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
+							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
+							<?php } ?>
+						</td>
+						<td class="text-center">
+		                    <div class="btn-group">
+		                    	<button type="button" class="btn btn-info btn-flat view_parcel" data-id="<?php echo $row['id'] ?>">
+		                          <i class="fas fa-eye"></i>
+		                        </button>
+		                        <a href="index.php?page=edit_parcel&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">
+		                          <i class="fas fa-edit"></i>
+		                        </a>
+		                        <button type="button" class="btn btn-danger btn-flat delete_parcel" data-id="<?php echo $row['id'] ?>">
+		                          <i class="fas fa-trash"></i>
+		                        </button>
+	                      </div>
+						</td>
+					</tr>		
+					 
+					 
+					 
+		<?php } endwhile; ?>
 				</tbody>
 			</table>
 		</div>

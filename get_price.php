@@ -7,15 +7,15 @@ if ($_GET['action'] == 'get_price') {
     $height = $_POST['height'];
     $length = $_POST['length'];
     $width = $_POST['width'];
-
+ $cate = $_POST['cate'];
     // Implement your logic to fetch the price from the master table
-    $price = fetchClosestPriceFromMasterTable($weight, $height, $length, $width);
+    $price = fetchClosestPriceFromMasterTable($weight, $height, $length, $width,$cate);
 
     // Return the calculated price
     echo $price;
 }
 
-function fetchClosestPriceFromMasterTable($weight, $height, $length, $width) {
+function fetchClosestPriceFromMasterTable($weight, $height, $length, $width,$cate) {
     global $conn; // Assuming $conn is your database connection object
 
     // Sanitize input to prevent SQL injection
@@ -23,6 +23,7 @@ function fetchClosestPriceFromMasterTable($weight, $height, $length, $width) {
     $height = mysqli_real_escape_string($conn, $height);
     $length = mysqli_real_escape_string($conn, $length);
     $width = mysqli_real_escape_string($conn, $width);
+ $cate = mysqli_real_escape_string($conn, $cate);
 
     // Query to fetch the closest match from the master table
     $query = "SELECT amount
@@ -31,6 +32,7 @@ function fetchClosestPriceFromMasterTable($weight, $height, $length, $width) {
                 AND height_from <= ? AND height_to >= ?
                 AND length_from <= ? AND length_to >= ?
                 AND width_from <= ? AND width_to >= ?
+				AND pcategory = ?
               ORDER BY amount ASC
               LIMIT 1";
 
@@ -39,7 +41,7 @@ function fetchClosestPriceFromMasterTable($weight, $height, $length, $width) {
 
     if ($stmt) {
         // Bind the parameters
-        $stmt->bind_param("dddddddd", $weight, $weight, $height, $height, $length, $length, $width, $width);
+        $stmt->bind_param("dddddddds", $weight, $weight, $height, $height, $length, $length, $width, $width,$cate);
 
         // Execute the statement
         $stmt->execute();

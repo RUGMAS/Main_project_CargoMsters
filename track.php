@@ -31,6 +31,9 @@
 	      <div class="timeline-body">
 	      	asdasd
 	      </div>
+		  <div class="route">
+	      
+	      </div>
 	    </div>
 	  </div>
 </div>
@@ -59,6 +62,7 @@
 							Object.keys(resp).map(function(k){
 								var tl = $('#clone_timeline-item .iitem').clone()
 								tl.find('.dtime').text(resp[k].date_created)
+								tl.find('.route').text(resp[k].Current_Route)
 								tl.find('.timeline-body').text(resp[k].status)
 								$('#parcel_history').append(tl)
 							})

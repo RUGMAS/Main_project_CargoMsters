@@ -3,7 +3,7 @@
 	<div class="card card-outline card-primary">
 		<div class="card-header">
 			<div class="card-tools">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary " href="./index.php?page=new_staff"><i class="fa fa-plus"></i> Add New</a>
+				<a class="btn btn-block btn-sm btn-default btn-flat border-primary " href="./index.php?page=new_staff"><i class="fa fa-plus"></i> Add New </a>
 			</div>
 		</div>
 		<div class="card-body">
@@ -27,7 +27,8 @@
 				<tbody>
 					<?php
 					$i = 1;
-					$qry = $conn->query("SELECT u.*,concat(u.firstname,' ',u.lastname) as name,concat(b.cus_name,', ',b.cus_adhaar,', ',b.cus_address,', ',b.cus_email,', ',b.cus_phoneno) as baddress FROM users u inner join associatives b on b.cus_logid = u.branch_id where u.type = 2 order by concat(u.firstname,' ',u.lastname) asc ");
+					$brid=$_SESSION['login_id'];
+					$qry = $conn->query("SELECT u.*,concat(u.firstname,' ',u.lastname) as name,concat(b.cus_name,', ',b.cus_adhaar,', ',b.cus_address,', ',b.cus_email,', ',b.cus_phoneno) as baddress FROM users u inner join associatives b on b.cus_logid = u.branch_id where u.type = 2 and u.branch_id = $brid order by concat(u.firstname,' ',u.lastname) asc ");
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>

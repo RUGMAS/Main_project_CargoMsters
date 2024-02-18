@@ -8,13 +8,13 @@ if(isset($_POST['add']))
 	$Weight1=$_POST['street1'];
     $Height=$_POST['city'];
 	 $Height1=$_POST['city1'];
-	
+	$cate=$_POST['cate'];
 	 $Length1=$_POST['state1'];
 	 $Length=$_POST['state'];
   $Width=$_POST['zip_code'];
    $Width1=$_POST['zip_code1'];
    $amt=$_POST['country'];
-  $insert="insert into prices(`weight_from`,`height_from`,`length_from`,`width_from`,`weight_to`,`height_to`,`length_to`,`width_to`,`amount`) values('$Weight','$Height','$Length','$Width','$Weight1','$Height1','$Length1','$Width1','$amt')";
+  $insert="insert into prices(`pcategory`,`weight_from`,`height_from`,`length_from`,`width_from`,`weight_to`,`height_to`,`length_to`,`width_to`,`amount`) values('$cate','$Weight','$Height','$Length','$Width','$Weight1','$Height1','$Length1','$Width1','$amt')";
     $ex=mysqli_query($conn,$insert);
     if($ex)
     {
@@ -31,7 +31,6 @@ if(isset($_POST['add']))
 
  
 ob_end_flush();
-
  ?>
 <style>
   textarea{
@@ -49,6 +48,22 @@ ob_end_flush();
             <div id="msg" class=""></div>
 
             <div class="row">
+			<div class="col-sm-6 form-group">
+    <label for="" class="control-label">Category</label>
+    <select name="cate" id="" cols="30" rows="2" class="form-control">
+        <option value="Consumer Goods" <?php echo $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
+        <option value="Industrial Goods" <?php echo $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
+        <option value="Specialized Cargo" <?php echo $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
+        <option value="Bulk Commodities" <?php echo $cate == 'Bulk Commodities' ? 'selected' : ''; ?>>Bulk Commodities</option>
+        <option value="Agricultural Products" <?php echo $cate == 'Agricultural Products' ? 'selected' : ''; ?>>Agricultural Products</option>
+        <option value="Energy Commodities" <?php echo $cate == 'Energy Commodities' ? 'selected' : ''; ?>>Energy Commodities</option>
+        <option value="Textiles" <?php echo $cate == 'Textiles' ? 'selected' : ''; ?>>Textiles</option>
+        <option value="Technology and Media" <?php echo $cate == 'Technology and Media' ? 'selected' : ''; ?>>Technology and Media</option>
+        <option value="Healthcare and Pharmaceutical" <?php echo $cate == 'Healthcare and Pharmaceutical' ? 'selected' : ''; ?>>Healthcare and Pharmaceutical</option>
+        <option value="Miscellaneous" <?php echo $cate == 'Miscellaneous' ? 'selected' : ''; ?>>Miscellaneous</option>
+    </select>
+</div>
+			  
               <div class="col-sm-6 form-group ">
                 <label for="" class="control-label">Weight From</label>
                 <input type="number" name="street" id="" cols="30" rows="2" class="form-control" value="<?php echo isset($street) ? $street : '' ?>">

@@ -131,7 +131,7 @@ $country1 = $conn->query("SELECT *,concat(country_name,', ',country_code,', ',cu
 							}
 
 							?>
-							<?php if($_SESSION['login_type'] == 4 ){ ?>
+							<?php if($_SESSION['login_type'] == 4 ||  $_SESSION['login_type'] == 2){ ?>
 							<span class="btn badge badge-primary bg-gradient-primary" id='update_status'><i class="fa fa-edit"></i> Update Status</span>
 							<?php } ?>
 						</dd>

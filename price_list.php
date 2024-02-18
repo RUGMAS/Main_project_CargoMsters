@@ -18,6 +18,7 @@
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
+						<th>Category</th>
 						<th>Weight</th>
 						<th>Height</th>
 						<th>Length</th>
@@ -34,6 +35,7 @@
 					?>
 					<tr>
 						<td class="text-center"><?php echo $i++ ?></td>
+						<td><b><?php echo $row['pcategory'] ?></b></td>
 						<td><b><?php echo $row['weight_from'] ?>-<?php echo $row['weight_to'] ?></b></td>
 						<td><b><?php echo $row['height_from'] ?>-<?php echo $row['height_to'] ?></b></td>
 						<td><b><?php echo $row['length_from'] ?>-<?php echo $row['length_to'] ?></b></td>

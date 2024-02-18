@@ -13,7 +13,7 @@ foreach($qry as $k => $v){
 	$state1=$qry['length_to'];
 	$zip_code1=$qry['width_to'];
 	$country=$qry['amount'];
-	
+	$cate=$qry['pcategory'];
 }
 include 'new_price.php';
 ?>

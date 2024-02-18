@@ -89,6 +89,8 @@
         <table class="table table-bordered" id="parcel-items">
           <thead>
             <tr>
+			 <th>Category</th>
+			 <th>Item Name</th>
               <th>Weight</th>
               <th>Height</th>
               <th>Length</th>
@@ -101,6 +103,21 @@
           </thead>
           <tbody>
             <tr>
+			 <td>
+    <select name="cate[]" id="" cols="30" rows="2" class="form-control">
+        <option value="Consumer Goods" <?php echo isset($cate) && $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
+        <option value="Industrial Goods" <?php echo isset($cate) && $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
+        <option value="Specialized Cargo" <?php echo isset($cate) && $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
+        <option value="Bulk Commodities" <?php echo isset($cate) && $cate == 'Bulk Commodities' ? 'selected' : ''; ?>>Bulk Commodities</option>
+        <option value="Agricultural Products" <?php echo isset($cate) && $cate == 'Agricultural Products' ? 'selected' : ''; ?>>Agricultural Products</option>
+        <option value="Energy Commodities" <?php echo isset($cate) && $cate == 'Energy Commodities' ? 'selected' : ''; ?>>Energy Commodities</option>
+        <option value="Textiles" <?php echo isset($cate) && $cate == 'Textiles' ? 'selected' : ''; ?>>Textiles</option>
+        <option value="Technology and Media" <?php echo isset($cate) && $cate == 'Technology and Media' ? 'selected' : ''; ?>>Technology and Media</option>
+        <option value="Healthcare and Pharmaceutical" <?php echo isset($cate) && $cate == 'Healthcare and Pharmaceutical' ? 'selected' : ''; ?>>Healthcare and Pharmaceutical</option>
+        <option value="Miscellaneous" <?php echo isset($cate) && $cate == 'Miscellaneous' ? 'selected' : ''; ?>>Miscellaneous</option>
+    </select>
+</td>
+			    <td><input type="text" name='item[]' value="<?php echo isset($item) ? $item :'' ?>" required></td>
               <td><input type="text" name='weight[]' value="<?php echo isset($weight) ? $weight :'' ?>" required></td>
               <td><input type="text" name='height[]' value="<?php echo isset($height) ? $height :'' ?>" required></td>
               <td><input type="text" name='length[]' value="<?php echo isset($length) ? $length :'' ?>" required></td>
@@ -115,7 +132,9 @@
           <tfoot>
             <th colspan="4" class="text-right">Total</th>
             <th class="text-right" id="tAmount">0.00</th>
-            <th></th>
+            
+			 <th colspan="2" class="text-right">Converted Amount</th>
+            <th class="text-right" id="tAmountConverted">0.00</th>
           </tfoot>
               <?php endif; ?>
         </table>
@@ -139,6 +158,20 @@
 <div id="ptr_clone" class="d-none">
   <table>
     <tr>
+	<td><select name='cate[]' required id="" cols="30" rows="2" class="form-control">
+	    <option value="Consumer Goods" <?php echo isset($cate) && $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
+        <option value="Industrial Goods" <?php echo isset($cate) && $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
+        <option value="Specialized Cargo" <?php echo isset($cate) && $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
+        <option value="Bulk Commodities" <?php echo isset($cate) && $cate == 'Bulk Commodities' ? 'selected' : ''; ?>>Bulk Commodities</option>
+        <option value="Agricultural Products" <?php echo isset($cate) && $cate == 'Agricultural Products' ? 'selected' : ''; ?>>Agricultural Products</option>
+        <option value="Energy Commodities" <?php echo isset($cate) && $cate == 'Energy Commodities' ? 'selected' : ''; ?>>Energy Commodities</option>
+        <option value="Textiles" <?php echo isset($cate) && $cate == 'Textiles' ? 'selected' : ''; ?>>Textiles</option>
+        <option value="Technology and Media" <?php echo isset($cate) && $cate == 'Technology and Media' ? 'selected' : ''; ?>>Technology and Media</option>
+        <option value="Healthcare and Pharmaceutical" <?php echo isset($cate) && $cate == 'Healthcare and Pharmaceutical' ? 'selected' : ''; ?>>Healthcare and Pharmaceutical</option>
+        <option value="Miscellaneous" <?php echo isset($cate) && $cate == 'Miscellaneous' ? 'selected' : ''; ?>>Miscellaneous</option>
+	
+	</select></td>
+	<td><input type="text" name='item[]' required></td>
         <td><input type="text" name='weight[]' required></td>
         <td><input type="text" name='height[]' required></td>
         <td><input type="text" name='length[]' required></td>
@@ -155,12 +188,12 @@ $('#parcel-items').on('keyup', '[name^="weight"], [name^="height"], [name^="leng
    var height = tr.find('[name^="height"]').val();
    var length = tr.find('[name^="length"]').val();
    var width = tr.find('[name^="width"]').val();
-
+ var cate = tr.find('[name^="cate"]').val();
    // AJAX call to fetch price from the server based on weight, height, length, width
   $.ajax({
     url: 'get_price.php?action=get_price',
     method: 'POST',
-    data: { weight: weight, height: height, length: length, width: width },
+    data: { weight: weight, height: height, length: length, width: width,cate: cate },
     success: function(response) {
         console.log(response);
 
@@ -219,6 +252,8 @@ $('#parcel-items').on('keyup', '[name^="weight"], [name^="height"], [name^="leng
       end_load()
       return false;
     }
+	
+	
 		$.ajax({
 			url:'ajax.php?action=save_parcel',
 			data: new FormData($(this)[0]),
@@ -267,5 +302,22 @@ $('#parcel-items').on('keyup', '[name^="weight"], [name^="height"], [name^="leng
          })
          if($('#tAmount').length > 0)
          $('#tAmount').text(parseFloat(total).toLocaleString('en-US',{style:'decimal',maximumFractionDigits:2,minimumFractionDigits:2}))
+	 
+	 // Make an AJAX request to convert the total amount
+	var to_branch_id = $('#to_branch_id').val();
+        $.ajax({
+            url: 'convert_currency.php',
+            method: 'POST',
+            data: { currency_code: to_branch_id, total_amount: total },
+            success: function(response) {
+                // Display the converted total amount
+               // $('#tAmountConverted').text(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    
+	 
   }
 </script>

@@ -1,339 +1,383 @@
 <!DOCTYPE html>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<html lang="en">
 
-<?php 
-session_start();
-include('./db_connect.php');
-  ob_start();
-  // if(!isset($_SESSION['system'])){
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
-    foreach($system as $k => $v){
-      $_SESSION['system'][$k] = $v;
-    }
-  // }
-  ob_end_flush();
-?>
-<?php 
-if(isset($_SESSION['login_id']))
-header("location:index.php?page=home");
+  <title>CARGO MASTER</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+  <link href="assets/img/favicon.png"rel="icon"/>
+  <link href="assets/img/apple-touch-icon.png"rel="apple-touch-icon"/>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="assets/vendor/animate.css/animate.min.css"rel="stylesheet"/>
+  <link href="assets/vendor/aos/aos.css"rel="stylesheet"/>
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="assets/vendor(/bootstrap-icons/bootstrap-icons.css" rel="styl')?>esheet"/>
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet"/>
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"/>
+  <link href="assets/vendor/remixicon/remixicon.css "rel="stylesheet"/>
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"/>
+  <link href="assets/css/style.css"rel="stylesheet"/>
+   <link rel="stylesheet" href="assets/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
+    <script src="assets/scriptnew.js" defer></script>
+    <script>
+        document.querySelector('.chatbot-trigger').addEventListener('click', function(event) {
+            alert('Chatbot icon clicked! Implement your chatbot logic here.');
+        });
+        function openChat() {
+            document.getElementById("chat-box").style.display = "block";
 
-?>
-	<script src="assets/plugins/jquery/jquery.min.js"></script>
-
-<style>
- body {
-            font-family: Arial, sans-serif;
-            background-color: #e6f7ff; /* Light Blue-Green */
-            background-image: url("images/viewpage.jpg");
-            padding-top: 50px; /* Add padding to prevent content from being hidden by the fixed header */
-            /* Add animation for the butterfly effect */
-            animation: butterflyEffect 15s linear infinite;
         }
+        function closeChat() {
 
-* {
-  box-sizing: border-box;
-}
+            document.getElementById("chat-box").style.display = "none";
 
-/* style the container */
-.container {
-  position: relative;
-  border-radius: 5px;
-  text-align: center;
-  background-color: #e6f7ff;
-  padding: 20px 0px 30px 0px;
-  margin-top: 150px;
-  margin-left: 90px;
-  margin-right: 90px;
+        }
+        function sendMessage() {
+
+            var userInput = document.getElementById("user-input").value;
+
+            if (userInput !== "") {
+
+                var chatContent = document.getElementById("chat-content");
+
+                chatContent.innerHTML += '<div class="chat-bubble user">' + userInput + '</div>';
+
+                document.getElementById("user-input").value = "";
+
+                setTimeout(function() {
+
+                    chatContent.innerHTML += '<div class="chat-bubble bot">I received your message: ' + userInput + '</div>';
+
+                    chatContent.scrollTop = chatContent.scrollHeight;
+
+                }, 1000);
+
+            }
+
+        }
+    </script>
   
-} 
-
-/* style inputs and link buttons */
-input,
-.btn {
-  width: 50%;
-  padding: 10px;
-  border: none;
-  border-radius: 4px;
-  margin: 5px 0;
-  opacity: 0.85;
-  display: inline-block;
-  font-size: 17px;
-  line-height: 20px;
-  text-decoration: none; /* remove underline from anchors */
-}
-
-input:hover,
-.btn:hover {
-  opacity: 1;
-}
-
-/* add appropriate colors to fb, twitter and google buttons */
-.fb {
-  background-color: #3B5998;
-  color: white;
-}
-
-.twitter {
-  background-color: #55ACEE;
-  color: white;
-}
-
-.google {
-  background-color: #dd4b39;
-  color: white;
-}
-
-/* style the submit button */
-input[type=submit] {
-  background-color: #04AA6D;
-  color: white;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #0099cc;
-}
-
-/* Two-column layout */
-.col {
-  float: left;
-  width: 50%;
-  margin: auto;
-  text-align: center;
-  padding: 0 50px;
-  margin-top: 20px;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* vertical line */
-.vl {
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%);
-  border: 2px solid #ddd;
-  height: 175px;
-}
-
-/* text inside the vertical line */
-.vl-innertext {
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #f1f1f1;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  padding: 8px 10px;
-}
-
-/* hide some text on medium and large screens */
-.hide-md-lg {
-  display: none;
-}
-
-/* bottom container */
-.bottom-container {
-  text-align: center;
-  background-color: #0099cc;
-  border-radius: 0px 0px 4px 4px;
-  margin-left: 90px;
-  margin-right: 90px;
-}
-
-/* Responsive layout - when the screen is less than 650px wide, make the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 650px) {
-  .col {
-    width: 50%;
-    margin-top: 0;
-    
-  }
-  /* hide the vertical line */
-  .vl {
-    display: none;
-  }
-  /* show the hidden text on small screens */
-  .hide-md-lg {
-    display: block;
-    text-align: center;
-  }
-}
- /* Keyframes for the butterfly effect animation */
-        @keyframes butterflyEffect {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
-		
-	
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 2rem;
-}
-
-.logo {
-    font-size: 1.5rem;
-}
-
-ul {
-    list-style: none;
-    display: flex;
-}
-
-li {
-    margin-right: 1rem;
-}
-
-a {
-    text-decoration: none;
-    color: #fff;
-}
-
-/* Header Icons */
-.header-icons {
-    display: flex;
-    align-items: center;
-}
-
-.header-icons i {
-    margin-right: 1rem;
-}
-
-/* Header Login Link */
-.header-login a {
-    color: #fff;
-    text-decoration: none;
-    margin-right: 1rem;
-}
- header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #0099cc; /* Dark Blue */
-    color: #fff;
-    padding: 1rem 0;
-    z-index: 100;
-}	
-	
-</style>
 </head>
-<body class="hold-transition login-page" >
-<header>
-        <nav>
-            <div class="logo"><a href="landing.php">Cargo Master</a></div>
-            <ul>
-                <li><a href="customer_registation.php">User Register</a></li>
-               <!-- <li><a href="#"></a></li>-->
-            </ul>
-            <div class="header-login">
-                <a href="associative.php">Delivery Associative</a>
-            </div>
-           <!-- <div class="header-icons">
-                <i class="fas fa-search"></i> 
-                <i class="fas fa-user-circle"></i> 
-                <i class="fas fa-envelope"></i> 
-                <i class="fas fa-phone"></i> 
-            </div>-->
-        </nav>
-    </header>
-  <div>
-<div class="container" >
-  <form action="" id="login-form">
-    <div class="row">
-      <h2 style="text-align:center">Login with Social Media or Manually</h2>
-      <div class="vl">
-        <span class="vl-innertext">or</span>
-      </div>
 
-      <div class="col">
-        <a href="#" class="fb btn">
-          <i class="fa fa-facebook fa-fw"></i> Login with Facebook
-         </a>
-        <a href="#" class="twitter btn">
-          <i class="fa fa-twitter fa-fw"></i> Login with Twitter
-        </a>
-        <a href="#" class="google btn"><i class="fa fa-google fa-fw">
-          </i> Login with Google
-        </a>
-      </div>
+<body>
 
-     <div class="col">
-    <div class="hide-md-lg">
-        <p>Or sign in manually:</p>
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email:</label>
-       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="email" name="email" id="email" required placeholder="Email" required>
-    </div>
-
-    <div class="form-group">
-        <label for="password">Password:</label>
-        <input type="password" name="password" id="password" placeholder="Password" required>
-    </div>
-
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input type="submit" value="Login">
-
-    <p class="registration-link"><a href="customer_registation.php">Not A Member?</a></p>
-</div>
+  <div id="topbar" class="fixed-top d-flex align-items-center ">
+    <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
+      
       
     </div>
-  </form>
-</div>
+  </div>
 
-<div class="bottom-container">
-  <div class="row">
-    <div class="col">
-      <a href="#" style="color:white" class="btn"></a>
+  <header id="header" class="fixed-top d-flex align-items-center ">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <h1 class="logo"><a href="landing.php">CARGO MASTER</a></h1>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+       <li><a class="nav-link scrollto active" href="welcome.php">Login</a></li>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
     </div>
-    <div class="col">
-      <a href="forgot.php" style="color:white" class="btn">Forgot password?</a>
+  </header><!-- End Header -->
+
+
+<!--  Hero Section ======= -->
+<section id="hero" class="d-flex justify-cntent-center align-items-center">
+    <div id="heroCarousel" data-bs-interval="5000" class="container carousel carousel-fade" data-bs-ride="carousel">
+
+      <!-- Slide 1 -->
+      <div class="carousel-item active">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">Welcome to <span>CARGO MASTER</span></h2>
+          
+          
+        </div>
+      </div>
+       <!-- Slide 2 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">CARGO MASTER Express Delivery</h2>
+          
+         
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="carousel-item">
+        <div class="carousel-container">
+          <h2 class="animate__animated animate__fadeInDown">CARGO MASTER Express Delivery</h2>
+          
+         
+        </div>
+      </div>
+
+      <a class="carousel-control-prev" href="#heroCarousel" role="button" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon bx bx-chevron-left" aria-hidden="true"></span>
+      </a>
+
+      <a class="carousel-control-next" href="#heroCarousel" role="button" data-bs-slide="next">
+        <span class="carousel-control-next-icon bx bx-chevron-right" aria-hidden="true"></span>
+      </a>
+
+    </div>
+  </section>
+    <!-- ======= Icon Boxes Section ======= -->
+    <section id="icon-boxes" class="icon-boxes">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bxl-dribbble"></i></div>
+              <a href="welcome.php"><h4 class="title">Book your Shipment</h4>
+              <p class="description">Request a shipment we'll be at your door step shortly</p>
+              <br>
+              <br>
+              <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Book Now</button>
+</a>
+</div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-file"></i></div>
+            <a href="welcome.php">  <h4 class="title">Track your shipment</h4>
+              <p class="description">Click to know where your parcel has reached</p>
+              <br>
+              <br>
+              <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Track A Shipment</button>
+</a>
+</div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-tachometer"></i></div>
+          <a href="customer_registation.php">    <h4 class="title">User Register</h4>
+              <p class="description">Click to register user details</p>
+              <br><br>
+              <br>
+              <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Register</button>
+</a>
+</div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon-box">
+              <div class="icon"><i class="bx bx-layer"></i></div>
+             <a href="associative.php"> <h4 class="title">Delivery Associative</h4>
+              <p class="description">Click to register Delivery details</p>
+              <br><br>
+              <br>
+              <div class="d-grid gap-2">
+  <button class="btn btn-primary" type="button">Register</button>
+</a>
+</div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Icon Boxes Section -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Contact Us</h2>
+        </div>
+
+        <div class="row mt-1 d-flex justify-content-end" data-aos="fade-right" data-aos-delay="100">
+
+          <div class="col-lg-5">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Location:</h4>
+                <p>Cargo master ,india </p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Email:</h4>
+                <p>info@cargomaster.com</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Call:</h4>
+                <p>+1 5589 55488 55s</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 mt-5 mt-lg-0" data-aos="fade-left" data-aos-delay="100">
+
+         <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>One Of India’s Leading Integrated Express Logistics Provider</h4>
+              
+              </div>
+
+              <div class="email">
+                <i class="bi bi-envelope"></i>
+                <h4>Opeating Facility:</h4>
+                <p>580</p>
+              </div>
+
+              <div class="phone">
+                <i class="bi bi-phone"></i>
+                <h4>Deliveries per month:</h4>
+                <p>12 million+</p>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+
+  </main><!-- End #main -->
+
+<footer id="footer">
+
+<div class="footer-newsletter">
+  <div class="container">
+    <div class="row">
+      
     </div>
   </div>
 </div>
 
-</body>
-</html>
+<div class="footer-top">
+  <div class="container">
+    <div class="row">
 
-<script>
-  $(document).ready(function(){
-    $('#login-form').submit(function(e){
-    e.preventDefault()
-    start_load()
-    if($(this).find('.alert-danger').length > 0 )
-      $(this).find('.alert-danger').remove();
-    $.ajax({
-      url:'ajax.php?action=login',
-      method:'POST',
-      data:$(this).serialize(),
-      error:err=>{
-        console.log(err)
-        end_load();
+      <div class="col-lg-3 col-md-6 footer-links">
+        <h4>Useful Links</h4>
+        <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">About us</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Services</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Terms of service</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Privacy policy</a></li>
+        </ul>
+      </div>
 
-      },
-      success:function(resp){
-        if(resp == 1){
-          location.href ='index.php?page=home';
-        }else{
-          $('#login-form').prepend('<div class="alert alert-danger">Username or password is incorrect.</div>')
-          end_load();
-        }
-      }
-    })
-  })
-  })
-</script>
-<?php include 'footer.php' ?>
+<div class="col-lg-3 col-md-6 footer-links">
+        <h4>Our Services</h4>
+     <ul>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Shipment</a></li>
+   
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Product Management</a></li>
+          <li><i class="bx bx-chevron-right"></i> <a href="#">Marketing</a></li>
+         
+        </ul>
+</div>
+
+      <div class="col-lg-3 col-md-6 footer-contact">
+        <h4>Contact Us</h4>
+        <p>
+          A108 Adam Street <br>
+          New York, NY 535022<br>
+          United States <br><br>
+          <strong>Phone:</strong> +1 5589 55488 55<br>
+          <strong>Email:</strong> info@example.com<br>
+        </p>
+
+      </div>
+
+      <div class="col-lg-3 col-md-6 footer-info">
+        <h3>About </h3>
+        <p>Cras fermentum odio eu feugiat lide par naso tierra. Justo eget nada terra videa magna derita valies darta donna mare fermentum iaculis eu non diam phasellus.</p>
+        <div class="social-links mt-3">
+          <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
+          <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
+          <a href="https://www.linkedin.com/in/cargo-masters-3b54792b5/" target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="copyright">
+    &copy; Copyright <strong><span>Cargo Master</span></strong>. All Rights Reserved
+  </div>
+  
+</div>
+</footer><!-- End Footer -->
+
+<div id="preloader"></div>
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="assets/vendor/aos/aos.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+<script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+<script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+<script src="assets/vendor/php-email-form/validate.js"></script>
+
+<!-- Template Main JS File -->
+<script src="assets/js/main.js"></script>
+
+
+  <button class="chatbot-toggler">
+
+      <span class="material-symbols-rounded">mode_comment</span>
+
+      <span class="material-symbols-outlined">close</span>
+
+  </button>
+
+  <div class="chatbot">
+
+      <header>
+
+          <h2 class="m-0">Chat with us</h2>
+
+          <span class="close-btn material-symbols-outlined">close</span>
+
+      </header>
+
+      <ul class="chatbox">
+
+          <li class="chat incoming">
+
+              <span class="material-symbols-outlined">smart_toy</span>
+
+              <p>Hi there ðŸ‘‹<br>How can I help you today?</p>
+
+          </li>
+
+      </ul>
+
+      <div class="chat-input" style="justify-content: right;">
+
+          <!-- <textarea placeholder="Enter a message...Enquiry or Support" spellcheck="false" required>Enquiry</textarea> -->
+          <button id="btn-enquiry" class="edu-btn btn-medium">Enquiry</button>
+          <button id="btn-support" class="edu-btn btn-secondary">Support</button>
+      </div>
+  </div>

@@ -338,7 +338,7 @@ Class Action {
 		foreach($price as $k => $v){
 			$data = "";
 			foreach($_POST as $key => $val){
-				if(!in_array($key, array('id','weight','height','width','length','price')) && !is_numeric($key)){
+				if(!in_array($key, array('id','cate','item','weight','height','width','length','price')) && !is_numeric($key)){
 					if(empty($data)){
 						$data .= " $key='$val' ";
 					}else{
@@ -353,6 +353,8 @@ Class Action {
 				$data .= ", width='{$width[$k]}' ";
 				$data .= ", length='{$length[$k]}' ";
 				$data .= ", weight='{$weight[$k]}' ";
+				$data .= ", cate='{$cate[$k]}' ";
+				$data .= ", item='{$item[$k]}' ";
 				$price[$k] = str_replace(',', '', $price[$k]);
 				$data .= ", price='{$price[$k]}' ";
 			if(empty($id)){
@@ -386,12 +388,14 @@ Class Action {
 		}
 	}
 	function update_parcel(){
-		extract($_POST);
-		$update = $this->db->query("UPDATE parcels set status= $status where id = $id");
-		$save = $this->db->query("INSERT INTO parcel_tracks set status= $status , parcel_id = $id");
-		if($update && $save)
-			return 1;  
-	}
+    extract($_POST);
+    $logid=$log;
+    $boyn=$logname;
+    $update = $this->db->query("UPDATE parcels set status= $status,update_logid=$logid,update_boy_name=$boyn where id = $id");
+    $save = $this->db->query("INSERT INTO parcel_tracks set status= $status, current_route= $route, parcel_id = $id");
+    if($update && $save)
+        return 1;  
+}
 	function get_parcel_heistory(){
 		extract($_POST);
 		$data = array();
@@ -406,6 +410,7 @@ Class Action {
 			while($row = $history->fetch_assoc()){
 				$row['date_created'] = date("M d, Y h:i A",strtotime($row['date_created']));
 				$row['status'] = $status_arr[$row['status']];
+				$row['Current_Route'] =$row['current_route'];
 				$data[] = $row;
 			}
 			return json_encode($data);
