@@ -5,7 +5,7 @@
 session_start();
 include('./db_connect.php');
   ob_start();
-  // if(!isset($_SESSION['system'])){
+   if(!isset($_SESSION['system'])){
 
     $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
     foreach($system as $k => $v){
@@ -16,19 +16,18 @@ include('./db_connect.php');
   
 //require_once 'google-api-php-client-main/vendor/autoload.php';
  
-  $clientID = "cargomasters4u"; // Replace with your Google Client ID
-$secret = "rugmas04102001phpprt"; // Replace with your Google Client Secret
+  $clientID = "248618394498-u09ljvvvssqtkhldkjnsbn98m8aia2n4.apps.googleusercontent.com"; // Replace with your Google Client ID
+$secret = "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"; // Replace with your Google Client Secret
+ //Google API Client
+$gclient = new Google_Client();
 
-// Google API Client
-//$gclient = new Google_Client();
 
+$gclient->setClientId($clientID);
+$gclient->setClientSecret($secret);
+$gclient->setRedirectUri('http://localhost/logman/home.php');
 
-//$gclient->setClientId($clientID);
-//$gclient->setClientSecret($secret);
-//$gclient->setRedirectUri('http://localhost/logman/home.php');
-
-//$gclient->addScope('email');
-//$gclient->addScope('profile');
+$gclient->addScope('email');
+$gclient->addScope('profile');
 
 
 
@@ -108,7 +107,7 @@ if (isset($_GET['code'])) {
 }
   
   
-
+   }
 ?>
 <?php 
 if(isset($_SESSION['login_id']))
@@ -432,4 +431,4 @@ a {
   })
   })
 </script>
-<?php include 'footer.php' ?>
+<?php include 'footer.php'; ?>

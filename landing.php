@@ -8,9 +8,15 @@
   <title>CARGO MASTER</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
+
+  <!-- Favicons -->
   <link href="assets/img/favicon.png"rel="icon"/>
   <link href="assets/img/apple-touch-icon.png"rel="apple-touch-icon"/>
+
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
   <link href="assets/vendor/animate.css/animate.min.css"rel="stylesheet"/>
   <link href="assets/vendor/aos/aos.css"rel="stylesheet"/>
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
@@ -19,24 +25,57 @@
   <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet"/>
   <link href="assets/vendor/remixicon/remixicon.css "rel="stylesheet"/>
   <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet"/>
+
+  <!-- Template Main CSS File -->
+  
   <link href="assets/css/style.css"rel="stylesheet"/>
+
+  <!-- =======================================================
+  * Template Name: Anyar
+  * Updated: Jan 29 2024 with Bootstrap v5.3.2
+  * Template URL: https://bootstrapmade.com/anyar-free-multipurpose-one-page-bootstrap-theme/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
    <link rel="stylesheet" href="assets/style.css">
+
+
+
+
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@48,400,1,0" />
     <script src="assets/scriptnew.js" defer></script>
+
     <script>
+       
+
+
         document.querySelector('.chatbot-trigger').addEventListener('click', function(event) {
+
+            // Replace this alert with your actual chatbot integration code
+
             alert('Chatbot icon clicked! Implement your chatbot logic here.');
+
         });
+
         function openChat() {
+
             document.getElementById("chat-box").style.display = "block";
 
         }
+
+
+
         function closeChat() {
 
             document.getElementById("chat-box").style.display = "none";
 
         }
+
+
+
         function sendMessage() {
 
             var userInput = document.getElementById("user-input").value;
@@ -48,6 +87,10 @@
                 chatContent.innerHTML += '<div class="chat-bubble user">' + userInput + '</div>';
 
                 document.getElementById("user-input").value = "";
+
+
+
+                // Simulate a bot response after a delay
 
                 setTimeout(function() {
 
@@ -66,6 +109,7 @@
 
 <body>
 
+  <!-- ======= Top Bar ======= -->
   <div id="topbar" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex align-items-center justify-content-center justify-content-md-between">
       
@@ -73,14 +117,39 @@
     </div>
   </div>
 
+  <!-- ======= Header ======= -->
   <header id="header" class="fixed-top d-flex align-items-center ">
     <div class="container d-flex align-items-center justify-content-between">
 
       <h1 class="logo"><a href="landing.php">CARGO MASTER</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href=index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
       <nav id="navbar" class="navbar">
         <ul>
        <li><a class="nav-link scrollto active" href="welcome.php">Login</a></li>
+        <!--   <li><a class="nav-link scrollto active" href="#hero">Our ServicesS</a></li>
+         
+
+          <li class="dropdown"><a href="#"><span>Grow With Us</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="#">Drop Down 1</a></li>
+              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Drop Down 2</a></li>
+              <li><a href="#">Drop Down 3</a></li>
+              <li><a href="#">Drop Down 4</a></li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>-->
+        </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
@@ -192,6 +261,9 @@
 
       </div>
     </section><!-- End Icon Boxes Section -->
+
+
+    <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
       <div class="container" data-aos="fade-up">
 
@@ -257,6 +329,9 @@
 
   </main><!-- End #main -->
 
+
+
+<!-- ======= Footer ======= -->
 <footer id="footer">
 
 <div class="footer-newsletter">
@@ -379,5 +454,14 @@
           <!-- <textarea placeholder="Enter a message...Enquiry or Support" spellcheck="false" required>Enquiry</textarea> -->
           <button id="btn-enquiry" class="edu-btn btn-medium">Enquiry</button>
           <button id="btn-support" class="edu-btn btn-secondary">Support</button>
+
+
+
+
+          <!-- <span id="send-btn" class="material-symbols-rounded">send</span> -->
+
       </div>
+
+
+
   </div>
