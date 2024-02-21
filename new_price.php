@@ -1,6 +1,12 @@
 <?php 
 include('./db_connect.php');
   ob_start();
+  if(isset($_GET['cate']))
+{
+  $cate=$_GET['cate'];
+}else{
+	$cate="";
+}
 if(isset($_POST['add']))
 {
 

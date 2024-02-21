@@ -18,9 +18,9 @@
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
-						<th>Country Code</th>
-						<th>Name</th>
 						<th>Currency Code</th>
+						<th> Country Name</th>
+						<th>Country Code</th>
 						
 						<th>Action</th>
 					</tr>

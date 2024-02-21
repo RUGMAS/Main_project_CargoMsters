@@ -91,7 +91,12 @@
 			
 			
           </li>
-		  
+		     <li class="nav-item">
+                <a href="./index.php?page=parcel_list" class="nav-link nav-parcel_list nav-sall tree-item">
+                  <i class="fas fa-angle-right nav-icon"></i>
+                  <p>Assign Associative</p>
+                </a>
+              </li>
 		  
           
         <?php endif; ?>

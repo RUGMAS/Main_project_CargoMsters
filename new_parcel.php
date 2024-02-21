@@ -12,21 +12,27 @@
 		 <input type="hidden" name="add_logid" value="<?php echo isset($_SESSION['login_id']) ? $_SESSION['login_id'] : '' ?>">
         <div id="msg" class=""></div>
         <div class="row">
+		 <?php 
+		 $logid=$_SESSION['login_id'];
+                  $cus = $conn->query("SELECT * FROM customer where cus_logid='$logid'");
+                    while($rows = $cus->fetch_assoc()):
+                ?>
           <div class="col-md-6">
               <b>Sender Information</b>
               <div class="form-group">
                 <label for="" class="control-label">Name</label>
-                <input type="text" name="sender_name" id="" class="form-control form-control-sm" value="<?php echo isset($sender_name) ? $sender_name : '' ?>" required>
+                <input type="text" name="sender_name" id="" class="form-control form-control-sm" value="<?php echo $rows['cus_name'] ?>" required readonly> 
               </div>
               <div class="form-group">
                 <label for="" class="control-label">Address</label>
-                <input type="text" name="sender_address" id="" class="form-control form-control-sm" value="<?php echo isset($sender_address) ? $sender_address : '' ?>" required>
+               <input type="text" name="sender_address" id="" class="form-control form-control-sm" value="<?php echo $rows['cus_address'] ?>" required readonly>
               </div>
               <div class="form-group">
                 <label for="" class="control-label">Contact #</label>
-                <input type="text" name="sender_contact" id="" class="form-control form-control-sm" value="<?php echo isset($sender_contact) ? $sender_contact : '' ?>" required>
+                <input type="text" name="sender_contact" id="" class="form-control form-control-sm" value="<?php echo $rows['cus_phoneno'] ?>" required readonly>
               </div>
           </div>
+		   <?php endwhile; ?>
           <div class="col-md-6">
               <b>Recipient Information</b>
               <div class="form-group">
@@ -54,7 +60,7 @@
             </div>
           </div>
           <div class="col-md-6" id=""  <?php echo isset($type) && $type == 1 ? 'style="display: none"' : '' ?>>
-            <?php if($_SESSION['login_branch_id'] <= 0): ?>
+            <?php if($_SESSION['login_branch_id'] <= 0 && $_SESSION['login_type']==1): ?>
               <div class="form-group" id="fbi-field">
                 <label for="" class="control-label">Delivery Associative</label>
               <select name="from_branch_id" id="from_branch_id" class="form-control select2" required="">
@@ -86,16 +92,16 @@
         </div>
         <hr>
         <b>Parcel Information</b>
+		<div class="table-responsive">
         <table class="table table-bordered" id="parcel-items">
           <thead>
             <tr>
-			 <th>Category</th>
-			 <th>Item Name</th>
-              <th>Weight</th>
-              <th>Height</th>
-              <th>Length</th>
-              <th>Width</th>
-              <th>Price</th>
+			 <th>
+			 </th>
+              <th>
+             </th>
+              <th></th>
+              <th></th>
               <?php if(!isset($id)): ?>
               <th></th>
             <?php endif; ?>
@@ -104,7 +110,8 @@
           <tbody>
             <tr>
 			 <td>
-    <select name="cate[]" id="" cols="30" rows="2" class="form-control">
+			 <label>Category</label>
+    <select name="cate[]" id="" cols="30"  >
         <option value="Consumer Goods" <?php echo isset($cate) && $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
         <option value="Industrial Goods" <?php echo isset($cate) && $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
         <option value="Specialized Cargo" <?php echo isset($cate) && $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
@@ -115,14 +122,28 @@
         <option value="Technology and Media" <?php echo isset($cate) && $cate == 'Technology and Media' ? 'selected' : ''; ?>>Technology and Media</option>
         <option value="Healthcare and Pharmaceutical" <?php echo isset($cate) && $cate == 'Healthcare and Pharmaceutical' ? 'selected' : ''; ?>>Healthcare and Pharmaceutical</option>
         <option value="Miscellaneous" <?php echo isset($cate) && $cate == 'Miscellaneous' ? 'selected' : ''; ?>>Miscellaneous</option>
-    </select>
+    </select><br><br>
+	<label>Item Name</label>
+	<input type="text" name='item[]' value="<?php echo isset($item) ? $item :'' ?>" required>
+	
 </td>
-			    <td><input type="text" name='item[]' value="<?php echo isset($item) ? $item :'' ?>" required></td>
-              <td><input type="text" name='weight[]' value="<?php echo isset($weight) ? $weight :'' ?>" required></td>
-              <td><input type="text" name='height[]' value="<?php echo isset($height) ? $height :'' ?>" required></td>
-              <td><input type="text" name='length[]' value="<?php echo isset($length) ? $length :'' ?>" required></td>
-              <td><input type="text" name='width[]' value="<?php echo isset($width) ? $width :'' ?>" required></td>
-              <td><input type="text" class="text-right number" readonly name='price[]' value="<?php echo isset($price) ? $price :'' ?>" required></td>
+			  
+              <td>
+			  <label>Weight</label>
+			  
+			  <input type="text" name='weight[]' value="<?php echo isset($weight) ? $weight :'' ?>" required><br><br>
+              <label>Height</label>
+			  
+			  <input type="text" name='height[]' value="<?php echo isset($height) ? $height :'' ?>" required></td>
+              <td>
+			   <label>Length</label>
+			  <input type="text" name='length[]' value="<?php echo isset($length) ? $length :'' ?>" required><br><br>
+               <label>Width</label>
+			 
+			 <input type="text" name='width[]' value="<?php echo isset($width) ? $width :'' ?>" required></td>
+              <td>
+			  <label>Price</label>
+			  <input type="text" class="text-right number" readonly name='price[]' value="<?php echo isset($price) ? $price :'' ?>" required></td>
               <?php if(!isset($id)): ?>
               <td><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc()"><i class="fa fa-times"></i></button></td>
               <?php endif; ?>
@@ -130,14 +151,14 @@
           </tbody>
               <?php if(!isset($id)): ?>
           <tfoot>
-            <th colspan="4" class="text-right">Total</th>
-            <th class="text-right" id="tAmount">0.00</th>
+            <th colspan="1" class="text-right"></th>
+            <th class="text-right" >Total :- <span id="tAmount">0.00</span></th>
             
-			 <th colspan="2" class="text-right">Converted Amount</th>
-            <th class="text-right" id="tAmountConverted">0.00</th>
+			 <th colspan="1" class="text-right"></th>
+            <th class="text-right" >Converted Amount:- <span id="tAmountConverted">0.00</span></th>
           </tfoot>
               <?php endif; ?>
-        </table>
+        </table></div>
               <?php if(!isset($id)): ?>
         <div class="row">
           <div class="col-md-12 d-flex justify-content-end">
@@ -158,7 +179,9 @@
 <div id="ptr_clone" class="d-none">
   <table>
     <tr>
-	<td><select name='cate[]' required id="" cols="30" rows="2" class="form-control">
+	<td>
+	 <label>Category</label>
+	<select name='cate[]' required id="" cols="30"  >
 	    <option value="Consumer Goods" <?php echo isset($cate) && $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
         <option value="Industrial Goods" <?php echo isset($cate) && $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
         <option value="Specialized Cargo" <?php echo isset($cate) && $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
@@ -170,13 +193,23 @@
         <option value="Healthcare and Pharmaceutical" <?php echo isset($cate) && $cate == 'Healthcare and Pharmaceutical' ? 'selected' : ''; ?>>Healthcare and Pharmaceutical</option>
         <option value="Miscellaneous" <?php echo isset($cate) && $cate == 'Miscellaneous' ? 'selected' : ''; ?>>Miscellaneous</option>
 	
-	</select></td>
-	<td><input type="text" name='item[]' required></td>
-        <td><input type="text" name='weight[]' required></td>
-        <td><input type="text" name='height[]' required></td>
-        <td><input type="text" name='length[]' required></td>
-        <td><input type="text" name='width[]' required></td>
-        <td><input type="text" class="text-right number" name='price[]' required readonly></td>
+	</select><br><br>
+	<label>Item Name</label>
+	<input type="text" name='item[]' required>
+	</td>
+	
+        <td>
+		 <label>Weight</label>
+		<input type="text" name='weight[]' required><br><br>
+		 <label>Height</label>
+        <input type="text" name='height[]' required></td>
+        <td><label>Length</label>
+		<input type="text" name='length[]' required><br><br>
+		  <label>Width</label>
+        <input type="text" name='width[]' required></td>
+        <td>
+		 <label>Price</label>
+		<input type="text" class="text-right number" name='price[]' required readonly></td>
         <td><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc()"><i class="fa fa-times"></i></button></td>
       </tr>
   </table>

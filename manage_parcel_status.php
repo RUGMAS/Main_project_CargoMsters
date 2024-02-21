@@ -3,18 +3,33 @@ session_start();
 include('./db_connect.php');
 
 if(isset($_POST['dddadd'])) {
-    $logid = $_POST['log'];
+    
+	if($_SESSION['login_type'] != 4)
+	{
+		$logid = $_POST['log'];
     $logname = $_POST['logname'];
-    $status = $_POST['status'];
-    $route = $_POST['route'];
+	$route = $_POST['route'];
+$status = $_POST['status'];
+}else{
+	$status =10;
+}
+	//var_dump( $status );die();
+    
     $id = $_POST['id'];
-
+if($_SESSION['login_type'] != 4)
+	{
     $upt = "UPDATE parcels set status= $status, update_logid=$logid, update_boy_name='$logname' where id = $id";
     $exu = mysqli_query($conn, $upt);
     
     $insert = "INSERT INTO parcel_tracks(`status`, `current_route`, `parcel_id`) VALUES ('$status', '$route', '$id')";
     $ex = mysqli_query($conn, $insert);
+    }else{
+		 $upt = "UPDATE parcels set status= $status where id = $id";
+    $exu = mysqli_query($conn, $upt);
     
+    $insert = "INSERT INTO parcel_tracks(`status`, `parcel_id`) VALUES ('$status', '$id')";
+    $ex = mysqli_query($conn, $insert);
+	}
     if($ex) {
         echo "<script>alert('Status Updated');window.location.href='associative.php'</script>";
     } else {

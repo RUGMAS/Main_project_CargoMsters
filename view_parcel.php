@@ -84,7 +84,7 @@ $country1 = $conn->query("SELECT *,concat(country_name,', ',country_code,', ',cu
 						</div>
 					<dl>
 						<dt>Delivery Associative Accepted the Parcel:</dt>
-						<dd><?php echo ucwords($branch) ?></dd>
+						<dd><?php if(!empty($branch)): ?> <?php echo $branch ?> <?php endif;?></dd>
 						<?php if($type == 2): ?>
 							<dt>Delivery Country</dt>
 							<dd><?php echo ucwords($country) ?></dd>
@@ -134,6 +134,10 @@ $country1 = $conn->query("SELECT *,concat(country_name,', ',country_code,', ',cu
 							<?php if($_SESSION['login_type'] == 4 ||  $_SESSION['login_type'] == 2){ ?>
 							<span class="btn badge badge-primary bg-gradient-primary" id='update_status'><i class="fa fa-edit"></i> Update Status</span>
 							<?php } ?>
+							
+							<?php if($_SESSION['login_type'] == 1 ){ ?>
+							<span class="btn badge badge-primary bg-gradient-primary" id='Assign_associative'><i class="fa fa-edit"></i> Assign</span>
+							<?php } ?>
 						</dd>
 
 					</dl>
@@ -172,4 +176,9 @@ $country1 = $conn->query("SELECT *,concat(country_name,', ',country_code,', ',cu
 	$('#update_status').click(function(){
 		uni_modal("Update Status of: <?php echo $reference_number ?>","manage_parcel_status.php?id=<?php echo $id ?>&cs=<?php echo $status ?>","")
 	})
+	
+	$('#Assign_associative').click(function(){
+		uni_modal("Assign_associative of: <?php echo $reference_number ?>","assign_Associative.php?id=<?php echo $id ?>&cs=<?php echo $status ?>","")
+	})
+	
 </script>

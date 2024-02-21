@@ -418,7 +418,7 @@
 <!-- Template Main JS File -->
 <script src="assets/js/main.js"></script>
 
-
+<!--
   <button class="chatbot-toggler">
 
       <span class="material-symbols-rounded">mode_comment</span>
@@ -451,17 +451,17 @@
 
       <div class="chat-input" style="justify-content: right;">
 
-          <!-- <textarea placeholder="Enter a message...Enquiry or Support" spellcheck="false" required>Enquiry</textarea> -->
+         
           <button id="btn-enquiry" class="edu-btn btn-medium">Enquiry</button>
           <button id="btn-support" class="edu-btn btn-secondary">Support</button>
 
 
 
 
-          <!-- <span id="send-btn" class="material-symbols-rounded">send</span> -->
+         
 
       </div>
 
 
 
-  </div>
+  </div>-->

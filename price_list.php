@@ -43,7 +43,7 @@
 						<td><b><?php echo $row['amount'] ?></b></td>
 						<td class="text-center">
 		                    <div class="btn-group">
-		                        <a href="index.php?page=edit_price&id=<?php echo $row['id'] ?>" class="btn btn-primary btn-flat ">
+		                        <a href="index.php?page=edit_price&id=<?php echo $row['id'] ?>&cate=<?php echo $row['pcategory'] ?>" class="btn btn-primary btn-flat ">
 		                          <i class="fas fa-edit"></i>
 		                        </a>
 		                        <button type="button" class="btn btn-danger btn-flat delete_branch" data-id="<?php echo $row['id'] ?>">
