@@ -2,9 +2,7 @@
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-header">
-			<div class="card-tools">
-				<a class="btn btn-block btn-sm btn-default btn-flat border-primary " href="./index.php?page=new_country"><i class="fa fa-plus"></i> Add New</a>
-			</div>
+			
 		</div>
 		<div class="card-body">
 			<table class="table tabe-hover table-bordered" id="list">
@@ -18,33 +16,37 @@
 				<thead>
 					<tr>
 						<th class="text-center">#</th>
-						<th>Country Code</th>
-						<th>Name</th>
-						<th>Currency Code</th>
-						
-						<th>Action</th>
+						<th>Associative Name</th>
+						<th>Reg No</th>
+						<th>Address/Email/Phone</th>
+						<th>Our Delivery Boys</th>
+					
 					</tr>
 				</thead>
 				<tbody>
 					<?php
 					$i = 1;
-					$qry = $conn->query("SELECT * FROM country  ");
+					$qry = $conn->query("SELECT * FROM associatives");
 					while($row= $qry->fetch_assoc()):
 					?>
 					<tr>
 						<td class="text-center"><?php echo $i++ ?></td>
-						<td class=""><b><?php echo $row['country_code'] ?></b></td>
-						<td><b><?php echo ucwords($row['country_name']) ?></b></td>
-						<td><b><?php echo $row['currency_code'] ?></b></td>
-						
-						<td class="text-center">
-		                    <div class="btn-group">
-		                       
-		                <button type="button" class="btn btn-danger btn-flat delete_branch" data-id="<?php echo $row['country_id'] ?>">
-		                          <i class="fas fa-trash"></i>
-		                        </button>
-	                      </div>
-						</td>
+						<td class=""><b><?php echo $row['cus_name'] ?></b></td>
+						<td><b><?php echo $row['cus_adhaar'] ?></b></td>
+						<td><b><?php echo $row['cus_address'] ?></b><br>
+						<?php echo $row['cus_email'] ?><br><?php echo $row['cus_phoneno'] ?></td>
+
+
+						<td>
+								<?php
+								// Fetch delivery boys associated with this associative
+								$delivery_qry = $conn->query("SELECT * FROM users WHERE branch_id = {$row['cus_logid']}");
+								while ($delivery_row = $delivery_qry->fetch_assoc()) {
+									echo "<b>{$delivery_row['firstname']}</b><br>";
+								}
+								?>
+							</td>
+					
 					</tr>	
 				<?php endwhile; ?>
 				</tbody>

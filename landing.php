@@ -196,6 +196,13 @@
 
     </div>
   </section>
+
+
+
+
+
+
+  
     <!-- ======= Icon Boxes Section ======= -->
     <section id="icon-boxes" class="icon-boxes">
       <div class="container">
@@ -261,6 +268,128 @@
 
       </div>
     </section><!-- End Icon Boxes Section -->
+
+
+    <section id="icon-boxes" class="icon-boxes">
+    <div class="container">
+        <div class="section-title">
+            <h2>Delivery Associatives</h2>
+        </div>  <div class="row">
+        <?php
+        include './db_connect.php';
+        ob_start();
+        $query = "SELECT a.*, AVG(r.rating) AS avg_rating FROM associatives a LEFT JOIN rating r ON a.cus_logid = r.rate_associative GROUP BY a.cus_logid;";
+        $result = mysqli_query($conn, $query);
+
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                ?>
+              
+                    <div class="col-md-6 col-lg-3" data-aos="fade-up">
+                        <div class="icon-box">
+                            <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                            <h4 class="title"><?php echo $row["cus_name"]; ?></h4>
+                            <p class="description"><?php echo $row["cus_address"]; ?></p>
+
+                            <div class="d-grid gap-2">
+                                <div class="star-rating" data-rating="<?php echo $row["avg_rating"]; ?>">
+                                    <?php
+                                    // Display the star rating based on the average rating
+                                    for ($i = 1; $i <= 5; $i++) {
+                                        if ($i <= $row["avg_rating"]) {
+                                            echo '<span class="star filled"></span>';
+                                        } else {
+                                            echo '<span class="star"></span>';
+                                        }
+                                    }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+            }
+        }
+        ?>
+                </div>
+                
+
+    </div>
+</section>
+
+    <section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title">
+      <h2>Services</h2>
+    </div>
+
+    <div class="row mt-1 d-flex justify-content-end" data-aos="fade-right" data-aos-delay="100">
+     
+      <div class="col-lg-5" style="background-image: url('assets/img/india.jpg'); background-size: cover; background-position: center; position: relative;">
+        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px);"></div>
+        <div class="info" style="position: relative; z-index: 2; color: #fff; padding: 20px; ">
+        <h4 style="color: #fff; ">DOMESTIC:</h4> 
+        <div class="address">
+            <i class="bi bi-geo-alt"></i>
+            <h4 style="color: #fff; ">Mumbai</h4>
+          </div>
+
+          <div class="email">
+            <i class="bi bi-envelope"></i>
+            <h4 style="color: #fff; ">New Delhi</h4>
+          </div>
+
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">Bangalur</h4>
+          </div>
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">Kolkatta</h4>
+          </div>
+
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">Goa</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6 mt-5 mt-lg-0" style="background-image: url('assets/img/world.jpg'); background-size: cover; background-position: center; position: relative;">
+        <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px);"></div>
+        <div class="info" style="position: relative; z-index: 1; color: #fff; padding: 20px;">
+          <h4 style="color: #fff; ">INTERNATIONAL:</h4>
+          <div class="address">
+            <i class="bi bi-geo-alt"></i>
+            <h4 style="color: #fff; ">UK</h4>
+          </div>
+
+          <div class="email">
+            <i class="bi bi-envelope"></i>
+            <h4 style="color: #fff; ">CANADA</h4>
+          </div>
+
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">London</h4>
+          </div>
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">US</h4>
+          </div>
+
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">Australia</h4>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
 
 
     <!-- ======= Contact Section ======= -->
@@ -465,3 +594,51 @@
 
 
   </div>-->
+  <style>
+    .star-rating {
+    display: inline-block;
+    font-size: 24px;
+    color: #ffd700; /* Set star color */
+}
+
+.star-rating .star:before {
+    content: '\2605'; /* Star symbol */
+    margin-right: 5px;
+}
+
+.average-rating {
+    font-size: 18px;
+    color: #333;
+    margin-top: 5px;
+}
+ .star-rating .star {
+        display: inline-block;
+        width: 20px; /* Set star width */
+        height: 20px; /* Set star height */
+        margin-right: 5px;
+        font-size: 20px; /* Set star font size */
+        color: black; /* Set star color */
+    }
+
+    .star-rating .star.filled {
+        color: #ffd700; /* Set filled star color */
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    let starRating = document.querySelector(".star-rating");
+    let averageRating = document.querySelector(".average-rating");
+    
+    // Get the average rating from the data-rating attribute
+    let rating = parseFloat(starRating.getAttribute("data-rating"));
+    
+    // Round the rating to the nearest 0.5
+    rating = Math.round(rating * 2) / 2;
+    
+    // Set the star rating
+    starRating.style.setProperty("--rating", rating);
+    
+    // Set the average rating text
+    averageRating.textContent = "Average rating: " + rating;
+});
+  </script>

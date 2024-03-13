@@ -20,12 +20,48 @@ include('./db_connect.php');
     $name=$_POST['t1'];
     $adhar=$_POST['t2'];
   $cus_address=$_POST['t3'];
-   $cus_gender=$_POST['t4'];
+  // $cus_gender=$_POST['t4'];
     $cus_email=$_POST['t5'];
 	 $cus_phoneno=$_POST['t6'];
 	  $cus_state=$_POST['t7'];
 	   $pass=$_POST['t8'];
 $password=md5($pass);
+
+
+$a="sarath@cyberiasoftwares.com";
+    
+$msg='Thank U for registration'.'<br>'.
+'Associative User Id'." " .$cus_email. '<br>'.
+'Password is'." ".$pass;
+$subject='Associative Registration for Cargo Master';
+require 'vendor/autoload.php';
+
+require('Mail/phpmailer/PHPMailerAutoload.php'); 
+$mail = new PHPMailer;
+$mail->SMTPDebug = 0;
+//$mail->isMail(); 
+$mail->isSMTP();                                   // Set mailer to use SMTP
+$mail->Host = 'smtp.gmail.com';                    // Specify main and backup SMTP servers
+$mail->SMTPAuth = true;                            // Enable SMTP authentication
+$mail->Username = 'sarathcyb93@gmail.com';          // SMTP username
+$mail->Password = 'RRRugma@2001'; // SMTP password
+$mail->SMTPSecure = 'tls';                         // Enable TLS encryption, `ssl` also accepted
+$mail->Port = 587;                                 // TCP port to connect to
+
+$mail->setFrom('cargomasters4u@gmail.com');
+$mail->addReplyTo('cargomasters4u@gmail.com');
+$mail->addAddress($a);   // Add a recipient
+//$mail->addCC('cc@example.com');
+//$mail->addBCC('bcc@example.com');
+$mail->isHTML(true);  // Set email format to HTML
+$mail->Subject = $subject;
+$mail->Body    = $msg;
+$mail->send();
+
+
+
+
+
    $insert1="insert into users(`firstname`,`lastname`,`email`,`password`,`type`,`branch_id`) values('$name','','$cus_email','$password','4','')";
  $ex1=mysqli_query($conn,$insert1);
  $idl=mysqli_insert_id($conn);
@@ -310,9 +346,10 @@ a {
                 </div>
 
                 <div class="form-group">
-                    <label for="t2">Company Register No:</label>
-                    <input type="text" id="t2" name="t2" placeholder="Enter Company Register No" />
-                </div>
+    <label for="t2">Company Register No:</label>
+    <input type="text" id="t2" name="t2" placeholder="Enter Company Register No" pattern="[LU][0-9]{5}[0-9]{2}" title="Enter a valid Company Register No (e.g., L1234501)" required />
+   <br> <small>**Format: L or U (listed or unlisted) followed by 5 digits (industry) and 2 digits (state)</small>
+</div>
 
                 <div class="form-group">
                     <label for="t3">Address:</label>
@@ -333,9 +370,40 @@ a {
               
 
                 <div class="form-group">
-                    <label for="state">State:</label>
-                    &nbsp;&nbsp;&nbsp;&nbsp;  <input type="text" id="t7" name="t7" placeholder="State" required />
-                </div>
+    <label for="state">State:</label>
+    &nbsp;&nbsp;<select name="t7" id="state">
+        <option value="" disabled selected>Select State</option>
+        <option value="Andhra Pradesh">Andhra Pradesh</option>
+        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+        <option value="Assam">Assam</option>
+        <option value="Bihar">Bihar</option>
+        <option value="Chhattisgarh">Chhattisgarh</option>
+        <option value="Goa">Goa</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Haryana">Haryana</option>
+        <option value="Himachal Pradesh">Himachal Pradesh</option>
+        <option value="Jharkhand">Jharkhand</option>
+        <option value="Karnataka">Karnataka</option>
+        <option value="Kerala">Kerala</option>
+        <option value="Madhya Pradesh">Madhya Pradesh</option>
+        <option value="Maharashtra">Maharashtra</option>
+        <option value="Manipur">Manipur</option>
+        <option value="Meghalaya">Meghalaya</option>
+        <option value="Mizoram">Mizoram</option>
+        <option value="Nagaland">Nagaland</option>
+        <option value="Odisha">Odisha</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Rajasthan">Rajasthan</option>
+        <option value="Sikkim">Sikkim</option>
+        <option value="Tamil Nadu">Tamil Nadu</option>
+        <option value="Telangana">Telangana</option>
+        <option value="Tripura">Tripura</option>
+        <option value="Uttar Pradesh">Uttar Pradesh</option>
+        <option value="Uttarakhand">Uttarakhand</option>
+        <option value="West Bengal">West Bengal</option>
+    </select>
+</div>
+
 
                 <div class="form-group">
                     <label for="t8">Password:</label>

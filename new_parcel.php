@@ -98,12 +98,9 @@
             <tr>
 			 <th>
 			 </th>
-              <th>
-             </th>
-              <th></th>
-              <th></th>
+             
               <?php if(!isset($id)): ?>
-              <th></th>
+              <th style="width:10px ! important"></th>
             <?php endif; ?>
             </tr>
           </thead>
@@ -111,7 +108,7 @@
             <tr>
 			 <td>
 			 <label>Category</label>
-    <select name="cate[]" id="" cols="30"  >
+    <select name="cate[]" id="" cols="30"  class="form-control">
         <option value="Consumer Goods" <?php echo isset($cate) && $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
         <option value="Industrial Goods" <?php echo isset($cate) && $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
         <option value="Specialized Cargo" <?php echo isset($cate) && $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
@@ -124,38 +121,37 @@
         <option value="Miscellaneous" <?php echo isset($cate) && $cate == 'Miscellaneous' ? 'selected' : ''; ?>>Miscellaneous</option>
     </select><br><br>
 	<label>Item Name</label>
-	<input type="text" name='item[]' value="<?php echo isset($item) ? $item :'' ?>" required>
-	
+	<input type="text" name='item[]' value="<?php echo isset($item) ? $item :'' ?>" class="form-control" required><br><br>
+	  <label>Weight(Units: Grams (g), Kilograms (kg), Pounds (lbs), etc.)</label>
+			  
+			  <input type="text" name='weight[]' value="<?php echo isset($weight) ? $weight :'' ?>" class="form-control" required><br><br>
+              <label>Height(Units: Millimeters (mm), Centimeters (cm), Meters (m), Inches (in), Feet (ft), etc.)</label>
+			  
+			  <input type="text" name='height[]' value="<?php echo isset($height) ? $height :'' ?>" class="form-control" required><br><br>
+			  
+		 <label>Length(Units: Millimeters (mm), Centimeters (cm), Meters (m), Inches (in), Feet (ft), etc.)</label>
+			  <input type="text" name='length[]' value="<?php echo isset($length) ? $length :'' ?>" class="form-control" required><br><br>
+               <label>Width(Similar to Height & Length:** Use appropriate tools to measure the side-to-side distance)</label>
+			 
+			 <input type="text" name='width[]' value="<?php echo isset($width) ? $width :'' ?>" required class="form-control">	<br><br>  
+			 <label>Price(INR)</label>
+			  <input type="text" class="form-control" readonly name='price[]' value="<?php echo isset($price) ? $price :'' ?>" required>  
+			  
 </td>
 			  
-              <td>
-			  <label>Weight</label>
-			  
-			  <input type="text" name='weight[]' value="<?php echo isset($weight) ? $weight :'' ?>" required><br><br>
-              <label>Height</label>
-			  
-			  <input type="text" name='height[]' value="<?php echo isset($height) ? $height :'' ?>" required></td>
-              <td>
-			   <label>Length</label>
-			  <input type="text" name='length[]' value="<?php echo isset($length) ? $length :'' ?>" required><br><br>
-               <label>Width</label>
-			 
-			 <input type="text" name='width[]' value="<?php echo isset($width) ? $width :'' ?>" required></td>
-              <td>
-			  <label>Price</label>
-			  <input type="text" class="text-right number" readonly name='price[]' value="<?php echo isset($price) ? $price :'' ?>" required></td>
+             
               <?php if(!isset($id)): ?>
-              <td><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc()"><i class="fa fa-times"></i></button></td>
+              <td style="width:10px ! important"><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc()"><i class="fa fa-times"></i></button></td>
               <?php endif; ?>
             </tr>
           </tbody>
               <?php if(!isset($id)): ?>
           <tfoot>
-            <th colspan="1" class="text-right"></th>
-            <th class="text-right" >Total :- <span id="tAmount">0.00</span></th>
+           
+            <th class="text-right" >Total (INR):- <span id="tAmount">0.00</span><br><br>
             
-			 <th colspan="1" class="text-right"></th>
-            <th class="text-right" >Converted Amount:- <span id="tAmountConverted">0.00</span></th>
+			
+            Converted Amount:- <span id="tAmountConverted">0.00</span></th>
           </tfoot>
               <?php endif; ?>
         </table></div>
@@ -181,7 +177,7 @@
     <tr>
 	<td>
 	 <label>Category</label>
-	<select name='cate[]' required id="" cols="30"  >
+	<select name='cate[]' required id="" cols="30" class="form-control" >
 	    <option value="Consumer Goods" <?php echo isset($cate) && $cate == 'Consumer Goods' ? 'selected' : ''; ?>>Consumer Goods</option>
         <option value="Industrial Goods" <?php echo isset($cate) && $cate == 'Industrial Goods' ? 'selected' : ''; ?>>Industrial Goods</option>
         <option value="Specialized Cargo" <?php echo isset($cate) && $cate == 'Specialized Cargo' ? 'selected' : ''; ?>>Specialized Cargo</option>
@@ -195,21 +191,22 @@
 	
 	</select><br><br>
 	<label>Item Name</label>
-	<input type="text" name='item[]' required>
+	<input type="text" name='item[]' class="form-control"required><br><br>
+	 <label>Weight(Units: Grams (g), Kilograms (kg), Pounds (lbs), etc.)</label>
+		<input type="text" name='weight[]' class="form-control" required><br><br>
+		 <label>Height(Units: Millimeters (mm), Centimeters (cm), Meters (m), Inches (in), Feet (ft), etc.)</label>
+        <input type="text" name='height[]' class="form-control" required><br><br>
+		
+		<label>Length(Units: Millimeters (mm), Centimeters (cm), Meters (m), Inches (in), Feet (ft), etc.)</label>
+		<input type="text" name='length[]' class="form-control" required><br><br>
+		  <label>Width(Similar to Height & Length:** Use appropriate tools to measure the side-to-side distance)</label>
+        <input type="text" name='width[]' class="form-control" required><br><br>
+	<label>Price(INR)</label>
+		<input type="text" class="form-control" name='price[]' required readonly>
+	
 	</td>
 	
-        <td>
-		 <label>Weight</label>
-		<input type="text" name='weight[]' required><br><br>
-		 <label>Height</label>
-        <input type="text" name='height[]' required></td>
-        <td><label>Length</label>
-		<input type="text" name='length[]' required><br><br>
-		  <label>Width</label>
-        <input type="text" name='width[]' required></td>
-        <td>
-		 <label>Price</label>
-		<input type="text" class="text-right number" name='price[]' required readonly></td>
+       
         <td><button class="btn btn-sm btn-danger" type="button" onclick="$(this).closest('tr').remove() && calc()"><i class="fa fa-times"></i></button></td>
       </tr>
   </table>
