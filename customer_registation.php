@@ -1,22 +1,17 @@
 <!DOCTYPE html>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 <?php 
 session_start();
 include('./db_connect.php');
   ob_start();
   // if(!isset($_SESSION['system'])){
-
     $system = $conn->query("SELECT * FROM system_settings")->fetch_array();
     foreach($system as $k => $v){
       $_SESSION['system'][$k] = $v;
     }
   // }
-  
   if(isset($_POST['add']))
 {
-	
-	
     $name=$_POST['t1'];
     $adhar=$_POST['t2'];
   $cus_address=$_POST['t3'];
@@ -29,31 +24,23 @@ $password=md5($pass);
    $insert1="insert into users(`firstname`,`lastname`,`email`,`password`,`type`,`branch_id`) values('$name','','$cus_email','$password','3','')";
  $ex1=mysqli_query($conn,$insert1);
  $idl=mysqli_insert_id($conn);
-
   $insert="insert into customer(`cus_name`,`cus_adhaar`,`cus_address`,`cus_gender`,`cus_email`,`cus_phoneno`,`cus_state`,`cus_logid`) values('$name','$adhar','$cus_address','$cus_gender','$cus_email','$cus_phoneno','$cus_state','$idl')";
     $ex=mysqli_query($conn,$insert);
     if($ex)
     {
-        
     echo "<script>alert('Registration Sucessful');window.location.href='customer_registation.php'</script>";
-
     }
     else{
         echo mysqli_error($conn);
     }
-}
-  
-  
-  
+}  
   ob_end_flush();
 ?>
 <?php 
 if(isset($_SESSION['login_id']))
 header("location:index.php?page=home");
-
 ?>
 	<script src="assets/plugins/jquery/jquery.min.js"></script>
-
 <style>
  body {
             font-family: Arial, sans-serif;
@@ -67,7 +54,6 @@ header("location:index.php?page=home");
 * {
   box-sizing: border-box;
 }
-
 /* style the container */
 .container {
   position: relative;
@@ -80,7 +66,6 @@ header("location:index.php?page=home");
   margin-right: 90px;
   
 } 
-
 /* style inputs and link buttons */
 input,
 .btn {

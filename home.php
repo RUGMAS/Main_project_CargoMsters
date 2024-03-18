@@ -24,7 +24,6 @@ body {
                 background-position: 100% 50%;
             }
         }		
-	
 </style>
 <body class="hold-transition login-page" >
         <div class="row">
@@ -32,7 +31,6 @@ body {
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM associatives")->num_rows; ?></h3>
-
                 <p>Total Associatives</p>
               </div>
               <div class="icon">
@@ -44,7 +42,6 @@ body {
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM customer")->num_rows; ?></h3>
-
                 <p>Total Customers</p>
               </div>
               <div class="icon">
@@ -56,7 +53,6 @@ body {
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM parcels")->num_rows; ?></h3>
-
                 <p>Total Parcels</p>
               </div>
               <div class="icon">
@@ -68,7 +64,6 @@ body {
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM users where type != 1")->num_rows; ?></h3>
-
                 <p>Total Staff</p>
               </div>
               <div class="icon">
@@ -85,7 +80,6 @@ body {
             <div class="small-box bg-light shadow-sm border">
               <div class="inner">
                 <h3><?php echo $conn->query("SELECT * FROM parcels where status = {$k} ")->num_rows; ?></h3>
-
                 <p><?php echo $v ?></p>
               </div>
               <div class="icon">
@@ -96,41 +90,29 @@ body {
             <?php endforeach; ?>
       </div>
 </body>
-
 <?php elseif($_SESSION['login_type'] == 3): ?>
 <?php
 include('./db_connect.php');
   ob_start();
- 
 if($_SERVER["REQUEST_METHOD"] == "POST")
 {
 $user_id = $_SESSION['login_id'];
    $associate_id = $_POST["associate_id"];
     $rating = $_POST["rating"];
     $review = $_POST["review"];
-
-    // Insert the data into the database
+// Insert the data into the database
     $query = "INSERT INTO rating (rate_associative,rating,review,rate_userid) VALUES ('$associate_id', '$rating', '$review',$user_id)";
     $ex=mysqli_query($conn,$query);
     if($ex)
     {
-        
     echo "<script>alert('Thank You ...');window.location.href='./index.php?page=home'</script>";
-
     }
     else{
         echo mysqli_error($conn);
     }
 }
-  
-
-
- 
-ob_end_flush();
- 
+ob_end_flush(); 
 ?>
-
-
   <style>
     .welcome-card {
         font-family: Arial, sans-serif;
@@ -139,13 +121,11 @@ ob_end_flush();
         padding-top: 1500px;
         animation: butterflyEffect 15s linear infinite;
     }
-
     /* Keyframes for the butterfly effect animation */
     @keyframes butterflyEffect {
         0% {
             background-position: 0% 50%;
         }
-
         100% {
             background-position: 100% 50%;
         }
@@ -156,7 +136,6 @@ ob_end_flush();
         font-size: 24px;
         color: #ffd700; /* Set star color */
     }
-
     .star-rating .star {
         display: inline-block;
         width: 20px; /* Set star width */
@@ -165,16 +144,13 @@ ob_end_flush();
         font-size: 20px; /* Set star font size */
         color: black; /* Set star color */
     }
-
     .star-rating .star.filled {
         color: #ffd700; /* Set filled star color */
     }
-    
     .star-rating .star:before {
         content: '\2605'; /* Star symbol */
         margin-right: 5px;
     }
-
     .average-rating {
         font-size: 18px;
         color: #333;
@@ -201,17 +177,12 @@ ob_end_flush();
         </form>
     </div>
 </div>
-
-
-
 <div class="col-12 welcome-card">
     <div class="card" style="margin-top:-1500px">
         <div class="card-body">
             Welcome <?php echo $_SESSION['login_name'] ?>!
         </div>
-
         <br>
-        <h5><u>Ratings</u></h5>
         <div class="row">
             <?php
             $user_id = $_SESSION['login_id'];
@@ -221,8 +192,6 @@ ob_end_flush();
                       WHERE p.add_logid = $user_id
                       GROUP BY a.cus_logid";
             $result = mysqli_query($conn, $query);
-			//var_dump($query);die();
-			
             if (mysqli_num_rows($result) > 0) {
                 while ($row = mysqli_fetch_assoc($result)) {
                     ?>
@@ -260,17 +229,15 @@ ob_end_flush();
                     }
                     ?>
 								</div>
-								 
                             </div>
                         </div>
                     </div>
                 <?php }
             } ?>
         </div>
-		
 		 <h5><u>General Informations</u></h5>
-		 <p>Express Services
-Want to send important documents or small-to-medium sized parcels urgently? Our Express Service prioritises time-sensitivity and is ideal for meeting urgent delivery requirements. You can choose between our Premium and Standard express services based on your urgency and budget.
+		 <p>  Express Services
+  Want to send important documents or small-to-medium sized parcels urgently? Our Express Service prioritises time-sensitivity and is ideal for meeting urgent delivery requirements. You can choose between our Premium and Standard express services based on your urgency and budget.
 
 Express Standard
 Our Express Standard service optimises the pick-up and drop-off timings to provide you with express delivery at reasonable cost. We transport your parcels safely via multi modal logistics.
@@ -291,13 +258,8 @@ For B2B customers who have a high volume of medium or large-sized shipments, we 
     </div>
 </div>
  <script>
-     // Get the modal
     var modal = document.getElementById("reviewModal");
-
-    // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the symbol, open the modal
     var symbols = document.getElementsByClassName("open-modal");
     for (var i = 0; i < symbols.length; i++) {
         symbols[i].addEventListener('click', function() {
@@ -306,20 +268,15 @@ For B2B customers who have a high volume of medium or large-sized shipments, we 
             modal.style.display = "block";
         });
     }
-
-    // When the user clicks on <span> (x), close the modal
     span.onclick = function() {
         modal.style.display = "none";
     };
-
-    // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     };
  </script>
-
 <?php else: ?>
 <style>
 .welcome-card {
@@ -347,5 +304,4 @@ For B2B customers who have a high volume of medium or large-sized shipments, we 
           	</div>
           </div>
       </div>
-          
 <?php endif; ?>

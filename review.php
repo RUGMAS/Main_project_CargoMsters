@@ -5,46 +5,83 @@
 			
 		</div>
 		<div class="card-body">
-			<table class="table tabe-hover table-bordered" id="list">
-				<thead>
-					<tr>
-						<th class="text-center">#</th>
-						<th>Associative Name</th>
-						<th>Address</th>
-						<th>Rating</th>
-						<th>Review</th>
-						
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-					$i = 1;
-					$query = "SELECT associatives.*, AVG(r.rating) AS avg_rating,r.review FROM associatives LEFT JOIN rating r ON associatives.cus_logid = r.rate_associative";
-$result = mysqli_query($conn, $query);
-while($row = mysqli_fetch_assoc($result)) {
-					?>
-					<tr>
-						<th class="text-center"><?php echo $i++ ?></th>
-						<td><b><?php echo $row["cus_name"];?></b></td>
-						<td><b><?php echo $row["cus_address"];?></b></td>
-						<td><b> <div class="star-rating" data-rating="3.5">
-                                    <?php
-                                    // Display the star rating based on the average rating
-                                    for ($i = 1; $i <= 5; $i++) {
-                                        if ($i <= $row["avg_rating"]) {
-                                            echo '<span class="star filled"></span>';
-                                        } else {
-                                            echo '<span class="star "></span>';
-                                        }
-                                    }
-                                    ?>
-                                </div></b></td>
-								<td><b><?php echo $row["review"];?></b></td>		
-					
-					</tr>	
-					<?php  }  ?>
-				</tbody>
-			</table>
+        <table class="table tabe-hover table-bordered" id="list">
+                <thead>
+                    <tr>
+                        <th class="text-center">#</th>
+                        <th>Associative Name</th>
+                        <th>Address</th>
+                        <th>Rating</th>
+                        <th>Review</th>
+                      
+                    </tr>
+                </thead>
+                <tbody>
+                <?php
+                    $query = "SELECT a.*, r.rating, r.review, c.cus_name as posted_by FROM associatives a 
+                                LEFT JOIN rating r ON a.cus_logid = r.rate_associative 
+                                LEFT JOIN customer c ON r.rate_userid = c.cus_logid";
+
+                    // Add condition based on user's login type
+                    if($_SESSION['login_type'] == 4 ){
+                        if(empty($where))
+                            $where = " where ";
+                        else
+                            $where .= " and ";
+                        $where .= " (rate_associative= {$_SESSION['login_id']}) ";
+                        $query .= $where;
+                    }
+                  
+                    $result = mysqli_query($conn, $query);
+                    $associative_reviews = array();
+                    while($row = mysqli_fetch_assoc($result)) {
+                        $associative_id = $row["cus_logid"];
+                        if (!isset($associative_reviews[$associative_id])) {
+                            $associative_reviews[$associative_id] = array(
+                                "name" => $row["cus_name"],
+                                "address" => $row["cus_address"],
+                                "rating" => $row["rating"],
+                                "reviews" => array()
+                            );
+                        }
+                        $associative_reviews[$associative_id]["reviews"][] = array(
+                            "review" => $row["review"],
+                            "posted_by" => $row["posted_by"]
+                        );
+                    }
+
+                    $i = 1;
+                    foreach ($associative_reviews as $associative_id => $data) {
+                    ?>
+                    <tr>
+                        <td class="text-center"><?php echo $i++ ?></td>
+                        <td><b><?php echo $data["name"];?></b></td>
+                        <td><b><?php echo $data["address"];?></b></td>
+                        <td><b> <div class="star-rating" data-rating="<?php echo $data["rating"]; ?>">
+                            <?php
+                            // Display the star rating based on the rating
+                            for ($j = 1; $j <= 5; $j++) {
+                                if ($j <= $data["rating"]) {
+                                    echo '<span class="star filled"></span>';
+                                } else {
+                                    echo '<span class="star"></span>';
+                                }
+                            }
+                            ?>
+                        </div></b></td>
+                        <td>
+                            <ul>
+                                <?php foreach ($data["reviews"] as $review) { ?>
+                                    <li><?php echo $review["review"]; ?> - <?php echo $review["posted_by"]; ?></li>
+                                <?php } ?>
+                            </ul>
+                        </td>
+                      
+                       
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 		</div>
 	</div>
 </div>
