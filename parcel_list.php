@@ -21,6 +21,11 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 			</div>
 		</div>
 		<div class="card-body">
+		<div class="row">
+						<div class="col-md-12">
+        					<button type="button" class="btn btn-success float-right"  id="print"><i class="fa fa-print"></i> Print</button>
+						</div>
+					</div>	
 			<table class="table tabe-hover table-bordered" id="list">
 				<!-- <colgroup>
 					<col width="5%">
@@ -135,6 +140,8 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
+							<br>
+							<img src="images/barcode.jpg" >
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -208,6 +215,10 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
+							<br>
+							<img src="images/barcode.jpg" >
+
+
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -282,6 +293,8 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
+							<br>
+							<img src="images/barcode.gif" >
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -355,6 +368,8 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
+							<br>
+							<img src="images/barcode.gif" >
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -381,6 +396,30 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 		</div>
 	</div>
 </div>
+<noscript>
+	<style>
+		table.table{
+			width:100%;
+			border-collapse: collapse;
+		}
+		table.table tr,table.table th, table.table td{
+			border:1px solid;
+		}
+		.text-cnter{
+			text-align: center;
+		}
+	</style>
+	<h3 class="text-center"><b>Report</b></h3>
+</noscript>
+<div class="details d-none">
+		
+		<p><b>Status:</b> <span class="status-field">All</span></p>
+	</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
 <style>
 	table td{
 		vertical-align: middle !important;
@@ -476,4 +515,37 @@ var parcelid=document.getElementById('parcelid').value ;
 			}
 		})
 	}
+	$('#print').click(function(){
+		start_load()
+		var ns = $('noscript').clone()
+		var details = $('.details').clone()
+		var content = $('#list').clone()
+		var date_from = $('#date_from').val()
+		var date_to = $('#date_to').val()
+		var status = $('#status').val()
+		var stat_arr = '<?php echo json_encode($status_arr) ?>';
+			stat_arr = JSON.parse(stat_arr);
+		details.find('.drange').text(date_from+" to "+date_to )
+		if(status>-1)
+		details.find('.status-field').text(stat_arr[status])
+		ns.append(details)
+		   content.find('th:last-child, td:last-child').remove();
+  // Add heading before content
+    ns.append('<h3 class="text-center"><b>CARGO MASTER</b></h3>');
+
+    ns.append(content);
+		ns.append(content)
+		var nw = window.open('','','height=700,width=900')
+		nw.document.write(ns.html())
+		nw.document.close()
+		nw.print()
+		setTimeout(function(){
+			nw.close()
+			end_load()
+		},750)
+
+	})
+
+
+
 </script>

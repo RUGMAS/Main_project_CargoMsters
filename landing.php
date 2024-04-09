@@ -122,10 +122,15 @@
     <div class="container d-flex align-items-center justify-content-between">
 
       <h1 class="logo"><a href="landing.php">CARGO MASTER</a></h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href=index.html" class="logo"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+
       <nav id="navbar" class="navbar">
         <ul>
        <li><a class="nav-link scrollto active" href="welcome.php">Login</a></li>
         <!--   <li><a class="nav-link scrollto active" href="#hero">Our ServicesS</a></li>
+         
+
           <li class="dropdown"><a href="#"><span>Grow With Us</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
@@ -220,7 +225,7 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0" data-aos="fade-up" data-aos-delay="100">
             <div class="icon-box">
               <div class="icon"><i class="bx bx-file"></i></div>
-            <a href="welcome.php">  <h4 class="title">Track your shipment</h4>
+            <a href="tracking.php">  <h4 class="title">Track your shipment</h4>
               <p class="description">Click to know where your parcel has reached</p>
               <br>
               <br>
@@ -324,7 +329,7 @@
       <div class="col-lg-5" style="background-image: url('assets/img/india.jpg'); background-size: cover; background-position: center; position: relative;">
         <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px);"></div>
         <div class="info" style="position: relative; z-index: 2; color: #fff; padding: 20px; ">
-        <h4 style="color: #fff; ">DOMESTIC:</h3> <br>
+        <h4 style="color: #fff; ">DOMESTIC:</h4> 
         <div class="address">
             <i class="bi bi-geo-alt"></i>
             <h4 style="color: #fff; ">Mumbai</h4>
@@ -337,11 +342,11 @@
 
           <div class="phone">
             <i class="bi bi-phone"></i>
-            <h4 style="color: #fff; ">Tamil Nadu</h4>
+            <h4 style="color: #fff; ">Bangalur</h4>
           </div>
           <div class="phone">
             <i class="bi bi-phone"></i>
-            <h4 style="color: #fff; ">Karnataka</h4>
+            <h4 style="color: #fff; ">Kolkatta</h4>
           </div>
 
           <div class="phone">
@@ -354,29 +359,29 @@
       <div class="col-lg-6 mt-5 mt-lg-0" style="background-image: url('assets/img/world.jpg'); background-size: cover; background-position: center; position: relative;">
         <div class="overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); backdrop-filter: blur(2px);"></div>
         <div class="info" style="position: relative; z-index: 1; color: #fff; padding: 20px;">
-          <h4 style="color: #fff; ">INTERNATIONAL:</h3> <br>
+          <h4 style="color: #fff; ">INTERNATIONAL:</h4>
           <div class="address">
             <i class="bi bi-geo-alt"></i>
-            <h4 style="color: #fff; ">United States</h4>
+            <h4 style="color: #fff; ">UK</h4>
           </div>
 
           <div class="email">
             <i class="bi bi-envelope"></i>
-            <h4 style="color: #fff; ">Canada</h4>
+            <h4 style="color: #fff; ">CANADA</h4>
           </div>
 
           <div class="phone">
             <i class="bi bi-phone"></i>
-            <h4 style="color: #fff; ">Russia</h4>
+            <h4 style="color: #fff; ">London</h4>
           </div>
+          <div class="phone">
+            <i class="bi bi-phone"></i>
+            <h4 style="color: #fff; ">US</h4>
+          </div>
+
           <div class="phone">
             <i class="bi bi-phone"></i>
             <h4 style="color: #fff; ">Australia</h4>
-          </div>
-
-          <div class="phone">
-            <i class="bi bi-phone"></i>
-            <h4 style="color: #fff; ">Germany</h4>
           </div>
         </div>
       </div>
@@ -402,7 +407,7 @@
               <div class="address">
                 <i class="bi bi-geo-alt"></i>
                 <h4>Location:</h4>
-                <p>Cargo master ,India </p>
+                <p>Cargo master ,india </p>
               </div>
 
               <div class="email">

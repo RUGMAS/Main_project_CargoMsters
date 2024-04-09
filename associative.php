@@ -15,8 +15,6 @@ include('./db_connect.php');
   
   if(isset($_POST['add']))
 {
-	
-	
     $name=$_POST['t1'];
     $adhar=$_POST['t2'];
   $cus_address=$_POST['t3'];
@@ -58,10 +56,6 @@ $mail->Subject = $subject;
 $mail->Body    = $msg;
 $mail->send();
 
-
-
-
-
    $insert1="insert into users(`firstname`,`lastname`,`email`,`password`,`type`,`branch_id`) values('$name','','$cus_email','$password','4','')";
  $ex1=mysqli_query($conn,$insert1);
  $idl=mysqli_insert_id($conn);
@@ -78,7 +72,6 @@ $mail->send();
         echo mysqli_error($conn);
     }
 }
-  
   
   
   ob_end_flush();
@@ -348,7 +341,7 @@ a {
                 <div class="form-group">
     <label for="t2">Company Register No:</label>
     <input type="text" id="t2" name="t2" placeholder="Enter Company Register No" pattern="[LU][0-9]{5}[0-9]{2}" title="Enter a valid Company Register No (e.g., L1234501)" required />
-   <br> <small>**Format: L or U (listed or unlisted) followed by 5 digits (industry) and 2 digits (state)</small>
+   <br> <small>Format: L or U (listed or unlisted) followed by 5 digits (industry) and 2 digits (state)</small>
 </div>
 
                 <div class="form-group">
@@ -370,40 +363,9 @@ a {
               
 
                 <div class="form-group">
-    <label for="state">State:</label>
-    &nbsp;&nbsp;<select name="t7" id="state">
-        <option value="" disabled selected>Select State</option>
-        <option value="Andhra Pradesh">Andhra Pradesh</option>
-        <option value="Arunachal Pradesh">Arunachal Pradesh</option>
-        <option value="Assam">Assam</option>
-        <option value="Bihar">Bihar</option>
-        <option value="Chhattisgarh">Chhattisgarh</option>
-        <option value="Goa">Goa</option>
-        <option value="Gujarat">Gujarat</option>
-        <option value="Haryana">Haryana</option>
-        <option value="Himachal Pradesh">Himachal Pradesh</option>
-        <option value="Jharkhand">Jharkhand</option>
-        <option value="Karnataka">Karnataka</option>
-        <option value="Kerala">Kerala</option>
-        <option value="Madhya Pradesh">Madhya Pradesh</option>
-        <option value="Maharashtra">Maharashtra</option>
-        <option value="Manipur">Manipur</option>
-        <option value="Meghalaya">Meghalaya</option>
-        <option value="Mizoram">Mizoram</option>
-        <option value="Nagaland">Nagaland</option>
-        <option value="Odisha">Odisha</option>
-        <option value="Punjab">Punjab</option>
-        <option value="Rajasthan">Rajasthan</option>
-        <option value="Sikkim">Sikkim</option>
-        <option value="Tamil Nadu">Tamil Nadu</option>
-        <option value="Telangana">Telangana</option>
-        <option value="Tripura">Tripura</option>
-        <option value="Uttar Pradesh">Uttar Pradesh</option>
-        <option value="Uttarakhand">Uttarakhand</option>
-        <option value="West Bengal">West Bengal</option>
-    </select>
-</div>
-
+                    <label for="state">Country:</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;  <input type="text" id="t7" name="t7" placeholder="Country" required />
+                </div>
 
                 <div class="form-group">
                     <label for="t8">Password:</label>

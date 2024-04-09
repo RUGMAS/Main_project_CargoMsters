@@ -45,7 +45,7 @@ ob_end_flush();
                 <textarea name="street" id="" cols="30" rows="2" class="form-control"><?php echo isset($street) ? $street : '' ?></textarea>
               </div>
               <div class="col-sm-6 form-group ">
-                <label for="" class="control-label">Currency Code</label>
+                <label for="" class="control-label">Country Code</label>
                 <textarea name="c_code" id="" cols="30" rows="2" class="form-control"><?php echo isset($zip_code) ? $zip_code : '' ?></textarea>
               </div>
             </div>
@@ -53,10 +53,13 @@ ob_end_flush();
             <div class="row">
              
               <div class="col-sm-6 form-group ">
-                <label for="" class="control-label">Country Code</label>
+                <label for="" class="control-label">Currency Code</label>
                 <textarea name="zip_code" id="" cols="30" rows="2" class="form-control"><?php echo isset($zip_code) ? $zip_code : '' ?></textarea>
               </div>
             </div>
+
+          
+
           </div>
         </div>
       

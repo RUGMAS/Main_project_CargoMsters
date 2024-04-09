@@ -1,5 +1,9 @@
-<?php include 'db_connect.php' ?>
+<?php include 'db_connect.php'; 
+ $currentDate = date("Y-m-d");
+
+?>
 <?php $status = isset($_GET['status']) ? $_GET['status'] : 'all' ?>
+
 <div class="col-lg-12">
 	<div class="card card-outline card-primary">
 		<div class="card-body">
@@ -14,9 +18,9 @@
 					<?php endforeach; ?>
 				</select>
 				<label for="date_from" class="mx-1">From</label>
-                <input type="date" id="date_from" class="form-control form-control-sm col-sm-3" value="<?php echo isset($_GET['date_from']) ? date("Y-m-d",strtotime($_GET['date_from'])) : '' ?>">
+                <input type="date" id="date_from" min="2024-01-01" max="<?php echo $currentDate; ?>" class="form-control form-control-sm col-sm-3" value="<?php echo isset($_GET['date_from']) ? date("Y-m-d",strtotime($_GET['date_from'])) : '' ?>">
                 <label for="date_to" class="mx-1">To</label>
-                <input type="date" id="date_to" class="form-control form-control-sm col-sm-3" value="<?php echo isset($_GET['date_to']) ? date("Y-m-d",strtotime($_GET['date_to'])) : '' ?>">
+                <input type="date" id="date_to" min="2024-01-01" max="<?php echo $currentDate; ?>" class="form-control form-control-sm col-sm-3" value="<?php echo isset($_GET['date_to']) ? date("Y-m-d",strtotime($_GET['date_to'])) : '' ?>">
                 <button class="btn btn-sm btn-primary mx-1 bg-gradient-primary" type="button" id='view_report'>View Report</button>
 			</div>
 		</div>
@@ -38,12 +42,13 @@
 								<th>Date</th>
 								<th>Sender</th>
 								<th>Recepient</th>
-								<th>Amount</th>
+								<th>Amount(INR)</th>
 								<th>Status</th>
+								<th>Action</th>
 							</tr>
 						</thead>
 						<tbody>
-							
+						
 						</tbody>
 					</table>
 				</div>
@@ -65,13 +70,17 @@
 			text-align: center;
 		}
 	</style>
-	<h3 class="text-center"><b>Report</b></h3>
+	<h3 class="text-center"><b>CARGO MASTER</b></h3>
 </noscript>
 <div class="details d-none">
 		<p><b>Date Range:</b> <span class="drange"></span></p>
 		<p><b>Status:</b> <span class="status-field">All</span></p>
 	</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
 <script>
+	
 	function load_report(){
 		start_load()
 		var date_from = $('#date_from').val()
@@ -100,6 +109,14 @@
 								tr.append('<td>'+(resp[k].recipient_name)+'</td>')
 								tr.append('<td>'+(resp[k].price)+'</td>')
 								tr.append('<td>'+(resp[k].status)+'</td>')
+								 tr.append('<td class="text-center">' +
+                            '<div class="btn-group">' +
+							'<button type="button" class="btn btn-info btn-flat view_parcel" data-id="'+resp[k].id+'">' +
+                            '<i class="fas fa-eye"></i>' +
+                            '</button>' +
+                           
+                            '</div>' +
+                            '</td>')
 								$('#report-list tbody').append(tr)
 							})
 							$('#print').show()
@@ -117,6 +134,11 @@
 				}
 			})
 	}
+	
+$(document).on('click', '.view_parcel', function() {
+    uni_modal("Parcel's Details", "view_parcel.php?id=" + $(this).attr('data-id'), "large");
+});
+	
 $('#view_report').click(function(){
 	if($('#date_from').val() == '' || $('#date_to').val() == ''){
 		alert_toast("Please select dates first.","error")
@@ -148,7 +170,11 @@ $('#print').click(function(){
 		if(status>-1)
 		details.find('.status-field').text(stat_arr[status])
 		ns.append(details)
+		   content.find('th:last-child, td:last-child').remove();
+  // Add heading before content
+    ns.append('<h3 class="text-center"><b></b></h3>');
 
+    ns.append(content);
 		ns.append(content)
 		var nw = window.open('','','height=700,width=900')
 		nw.document.write(ns.html())
@@ -161,3 +187,4 @@ $('#print').click(function(){
 
 	})
 </script>
+

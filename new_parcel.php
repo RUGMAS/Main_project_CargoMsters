@@ -81,10 +81,18 @@
               <select name="to_branch_id" id="to_branch_id" class="form-control select2">
                 <option value=""></option>
                 <?php 
-                  $branches = $conn->query("SELECT *,concat(country_name,', ',country_code) as address FROM country");
+                 // $branches = $conn->query("SELECT *,concat(country_name,', ',country_code) as address FROM country");
+				 
+				 $branches = $conn->query("
+                SELECT *, CONCAT(c.country_name, ', ', c.country_code) AS address, GROUP_CONCAT(a.cus_name SEPARATOR ', ') AS associated_names
+                FROM country c
+                LEFT JOIN associatives a ON c.country_name = a.cus_state
+                GROUP BY c.country_id
+            ");
+				 
                     while($row = $branches->fetch_assoc()):
                 ?>
-                  <option value="<?php echo $row['country_id'] ?>" <?php echo isset($to_branch_id) && $to_branch_id == $row['country_id'] ? "selected":'' ?>><?php echo $row['country_code']. ' | '.(ucwords($row['country_name'])) ?></option>
+                  <option value="<?php echo $row['country_id'] ?>" <?php echo isset($to_branch_id) && $to_branch_id == $row['country_id'] ? "selected":'' ?>><?php echo $row['country_code']. ' | '.(ucwords($row['country_name'])). ' (' . $row['associated_names'] . ')' ?></option>
                 <?php endwhile; ?>
               </select>
             </div>

@@ -63,9 +63,9 @@ $country1 = $conn->query("SELECT *,concat(country_name,', ',country_code,', ',cu
 						<div class="row">
 							<div class="col-sm-6">
 								<dl>
-									<dt>Wight:</dt>
+									<dt>Weight <span style="font-size:11px">(Units: Grams (g), Kilograms (kg), Pounds (lbs), etc.)</span>:</dt>
 									<dd><?php echo $weight ?></dd>
-									<dt>Height:</dt>
+									<dt>Height <span style="font-size:11px">(Units: Millimeters (mm), Centimeters (cm), Meters (m), Inches (in), Feet (ft), etc.)</span>:</dt>
 									<dd><?php echo $height ?></dd>
 									<dt>Price:</dt>
 									<dd><?php echo number_format($price,2) ?></dd>
@@ -73,9 +73,9 @@ $country1 = $conn->query("SELECT *,concat(country_name,', ',country_code,', ',cu
 							</div>
 							<div class="col-sm-6">
 								<dl>
-									<dt>Width:</dt>
+									<dt>Width <span style="font-size:11px">(Similar to Height & Length:** Use appropriate tools to measure the side-to-side distance)</span>:</dt>
 									<dd><?php echo $width ?></dd>
-									<dt>length:</dt>
+									<dt>length <span style="font-size:11px">(Units: Millimeters (mm), Centimeters (cm), Meters (m), Inches (in), Feet (ft), etc.)</span>:</dt>
 									<dd><?php echo $length ?></dd>
 									<dt>Type:</dt>
 									<dd><?php echo $type == 1 ? "<span class='badge badge-primary'>Domestic</span>":"<span class='badge badge-info'>International</span>" ?></dd>
