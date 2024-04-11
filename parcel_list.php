@@ -41,7 +41,11 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 						<?php if($_SESSION['login_type'] != 3) { ?><th>Sender Name</th> <?php } ?>
 						<th>Recipient Name</th>
 						<th>Category/ Item</th>
-						<th>Status</th>
+						<th>Status
+						<!-- <br>
+							<img src="images/barcode.gif" > -->
+
+						</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -140,8 +144,7 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
-							<br>
-							<img src="images/barcode.jpg" >
+							
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -215,9 +218,7 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
-							<br>
-							<img src="images/barcode.jpg" >
-
+							
 
 						</td>
 						<td class="text-center">
@@ -293,8 +294,7 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
-							<br>
-							<img src="images/barcode.gif" >
+							
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -368,8 +368,7 @@ $orderId = ""; // Initialize $orderId outside the condition to avoid undefined v
 							<input type="hidden" value="<?php echo $row['id'] ?>" id="parcelid">
 							<input type="hidden" value="<?php echo $row['sender_contact'] ?>" id="mob">
 							<?php } ?>
-							<br>
-							<img src="images/barcode.gif" >
+						
 						</td>
 						<td class="text-center">
 		                    <div class="btn-group">
@@ -532,9 +531,11 @@ var parcelid=document.getElementById('parcelid').value ;
 		   content.find('th:last-child, td:last-child').remove();
   // Add heading before content
     ns.append('<h3 class="text-center"><b>CARGO MASTER</b></h3>');
-
+  // Add barcode image
+  ns.append('<img src="images/barcode.gif" style="width: 100px; height: auto; display: block; margin: 20px auto;">');
     ns.append(content);
 		ns.append(content)
+		
 		var nw = window.open('','','height=700,width=900')
 		nw.document.write(ns.html())
 		nw.document.close()
