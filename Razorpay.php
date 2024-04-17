@@ -8,7 +8,7 @@ if (!defined('REQUESTS_SILENCE_PSR0_DEPRECATIONS'))
 
 if (class_exists('WpOrg\Requests\Autoload') === false)
 {
-    require_once _DIR_.'/libs/Requests-2.0.4/src/Autoload.php';
+    require_once __DIR__.'/libs/Requests-2.0.4/src/Autoload.php';
 }
 
 try
@@ -31,7 +31,7 @@ spl_autoload_register(function ($class)
     $prefix = 'Razorpay\Api';
 
     // base directory for the namespace prefix
-    $base_dir = _DIR_ . '/src/';
+    $base_dir = __DIR__ . '/src/';
 
     // does the class use the namespace prefix?
     $len = strlen($prefix);
