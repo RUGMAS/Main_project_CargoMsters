@@ -209,9 +209,6 @@ ob_end_flush();
         <div class="card-body">
             Welcome <?php echo $_SESSION['login_name'] ?>!
         </div>
-
-        <br>
-        <h5><u>Ratings</u></h5>
         <div class="row">
             <?php
             $user_id = $_SESSION['login_id'];
@@ -268,28 +265,52 @@ ob_end_flush();
             } ?>
         </div>
 		
-		 <h5><u>General Informations</u></h5>
-		 <p>Express Services
-Want to send important documents or small-to-medium sized parcels urgently? Our Express Service prioritises time-sensitivity and is ideal for meeting urgent delivery requirements. You can choose between our Premium and Standard express services based on your urgency and budget.
+		<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h5><u>General Informations</u></h5>
+                <p>
+                    <strong>General Instructions for Cargo Delivery:</strong>
+                    <ul>
+                        <li>📦 Please ensure all cargo is properly packaged and labeled before delivery.</li>
+                        <li>🕒 Delivery times may vary depending on location and shipping method.</li>
+                        <li>💼 Customers are responsible for providing accurate delivery details.</li>
+                        <li>💳 Payment must be made in accordance with our company's payment terms.</li>
+                    </ul>
 
-Express Standard
-Our Express Standard service optimises the pick-up and drop-off timings to provide you with express delivery at reasonable cost. We transport your parcels safely via multi modal logistics.
+                    <strong>Customer Policy:</strong>
+                    <ul>
+                        <li>👤 Customers must provide valid identification upon delivery.</li>
+                        <li>📞 For any inquiries or concerns, please contact our customer service team.</li>
+                        <li>📝 Changes to delivery instructions must be communicated in advance.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <strong>Company Policy:</strong>
+                <ul>
+                    <li>📋 Company reserves the right to refuse delivery to unsafe or inaccessible locations.</li>
+                    <li>🛑 Non-compliance with delivery regulations may result in additional charges.</li>
+                    <li>📧 All communication regarding deliveries should be conducted through official channels.</li>
+                </ul>
 
-Express Premium
-Our Express Premium service is an ideal solution if you need parcels delivered within a very short timeframe. Since it is a premium service, we offer day-definite and time-definite services for urgent shipments. To meet our customers’ tighter delivery schedules, we leverage our collaboration with all major airlines to move your shipments at our fastest turnaround time.
-		 
-<br><br>
-Ground Services
-Our Ground Services are a suitable logistics solution for medium to large-sized shipments. We have a fleet of over 1500+ trucks providing multi-stop trucking. You can choose between our Standard and Premium options as per your time and cost requirements.
-
-Ground Standard
-Ground Standard is the most cost-effective solution for B2B customers who have a high volume of large-sized and less-than-truckload shipments. We leverage multi stop trucking to provide you with a cost efficient logistics solution.
-
-Ground Premium
-For B2B customers who have a high volume of medium or large-sized shipments, we use point-to-point trucking for the best ground transit times. Ground Premium offers our fastest ground turnaround time in the network, providing our customers with speed and cost effectiveness for their logistical needs.		 
-		 </p>
+                <strong>Legal Agreement:</strong>
+                <ul>
+                    <li>⚖️ By using our delivery services, customers agree to abide by our terms and conditions.</li>
+                    <li>📜 All disputes shall be resolved in accordance with the laws of [Jurisdiction].</li>
+                    <li>🔒 Company is committed to protecting customer data in compliance with privacy laws.</li>
+                    <li>📄 Any modifications to the terms of this agreement must be agreed upon in writing by both parties.</li>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
+
  <script>
      // Get the modal
     var modal = document.getElementById("reviewModal");

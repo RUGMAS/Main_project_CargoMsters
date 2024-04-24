@@ -353,7 +353,23 @@ a {
     padding: 1rem 0;
     z-index: 100;
 }	
-	
+.back-button {
+  background-color: #007bff; /* Blue background color */
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.back-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
 </style>
 </head>
 <body class="hold-transition login-page" >
@@ -414,6 +430,12 @@ a {
 	    </div>
 	  </div>
 </div>
+<center>
+  <a href="landing.php">
+    <button class="back-button">Back</button>
+  </a>
+</center>
+
 <script>
 	function track_now(){
 		start_load()
