@@ -5,7 +5,7 @@ use Razorpay\Api\Api;
 
 $api = new Api('rzp_test_rV45cYN1u5Evk7', 'E6cBLbYiL9WaG4jKy8jyWcqI');
 
-$orderId = ""; // Initialize $orderId outside the condition to avoid undefined variable issues
+$orderId = ""; 
 
 ?>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -529,9 +529,7 @@ var parcelid=document.getElementById('parcelid').value ;
 		details.find('.status-field').text(stat_arr[status])
 		ns.append(details)
 		   content.find('th:last-child, td:last-child').remove();
-  // Add heading before content
     ns.append('<h3 class="text-center"><b>CARGO MASTER</b></h3>');
-  // Add barcode image
   ns.append('<img src="images/barcode.gif" style="width: 100px; height: auto; display: block; margin: 20px auto;">');
     ns.append(content);
 		ns.append(content)
@@ -546,7 +544,4 @@ var parcelid=document.getElementById('parcelid').value ;
 		},750)
 
 	})
-
-
-
 </script>
