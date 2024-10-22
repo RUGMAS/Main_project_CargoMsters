@@ -1,6 +1,6 @@
 <?php
 
-// Include Requests only if not already defined
+// Requests only if not already defined
 if (!defined('REQUESTS_SILENCE_PSR0_DEPRECATIONS'))
 {
     define('REQUESTS_SILENCE_PSR0_DEPRECATIONS', true);
